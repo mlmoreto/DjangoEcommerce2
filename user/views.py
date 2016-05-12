@@ -6,7 +6,7 @@ from .forms import UserForm
 def show_user(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
-        if form.is_valid():
+        if form.is_valid() and form.clean_username():
             pass
         else:
             dic = {'form': form}
