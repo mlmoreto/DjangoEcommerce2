@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style>
+
+</style>
+<div class="android-content mdl-layout__content">
+    <div class="container">
+        <div class="android-card-container mdl-grid">
+            <div class="col-md-10" id="three-container">
+                <div class="demo-card-wide mdl-card mdl-shadow--4dp">
+                    <form action="" method="post">
+                        <div class="mdl-card__title">
+                            <h2 class="mdl-card__title-text">Cadastro</h2>
+                        </div>
+                        <div class="mdl-card__supporting-text">
+                            <fieldset enable>
+                                <div class="form-group">
+                                    <label for="disabledTextInput">Disabled input</label>
+                                    <input type="text" id="disabledTextInput" class="form-control"
+                                           placeholder="Disabled input">
+                                </div>
+                                <div class="form-group">
+                                    <label for="disabledSelect">Disabled select menu</label>
+                                    <select id="disabledSelect" class="form-control">
+                                        <option>Disabled select</option>
+                                    </select>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> Can't check this
+                                    </label>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border">
+                            <input type="submit"
+                                   class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                                   value="Cadastrar">
+                        </div>
+                        <div class="mdl-card__menu">
+                            <!-- Implmentar logar com facebook -->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+{% endblock %}

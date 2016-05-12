@@ -10,8 +10,8 @@ def show_user(request):
             pass
         else:
             dic = {'form': form}
-            return render(request, 'testeForm.html', dic)
+            return render(request, 'userForm.html', dic)
     else:
         form = UserForm()
         dic = {'form': form}
-        return render(request, 'testeForm.html', dic)
+        return render(request, 'userForm.html', dic)
