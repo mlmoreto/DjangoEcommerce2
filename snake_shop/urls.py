@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^user/', include('user.urls')),
     url(r'^shop/', include('shop.urls')),
-    url(r'^&', include('shop.urls'))## cuidado é & e não $
+    url(r'^$', include('shop.urls'))## cuidado é & e não $-- é $ do outro não roda
 ]
 
 if settings.DEBUG:
