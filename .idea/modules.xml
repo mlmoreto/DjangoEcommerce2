@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/DjangoEcommerce.iml" filepath="$PROJECT_DIR$/.idea/DjangoEcommerce.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/DjangoEcommerce2.iml" filepath="$PROJECT_DIR$/.idea/DjangoEcommerce2.iml" />
     </modules>
   </component>
 </project>

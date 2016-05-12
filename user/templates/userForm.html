@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<style>
-
-</style>
 <div class="android-content mdl-layout__content">
     <div class="container">
         <div class="android-card-container mdl-grid">
@@ -16,20 +13,14 @@
                         <div class="mdl-card__supporting-text">
                             <fieldset enable>
                                 <div class="form-group">
-                                    <label for="disabledTextInput">Disabled input</label>
-                                    <input type="text" id="disabledTextInput" class="form-control"
-                                           placeholder="Disabled input">
+                                    <label for="{{form.name.id_for_label}}">{{form.name.label}}</label>
+                                    <input type="text" id={{form.name.id_for_label}}" class="form-control"
+                                           placeholder="{{form.name.label}}" maxlength="100">
                                 </div>
                                 <div class="form-group">
-                                    <label for="disabledSelect">Disabled select menu</label>
-                                    <select id="disabledSelect" class="form-control">
-                                        <option>Disabled select</option>
-                                    </select>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Can't check this
-                                    </label>
+                                    <label for="{{form.username.id_for_label}}">{{form.username.label}}</label>
+                                    <input type="text" id={{form.username.id_for_label}}" class="form-control"
+                                           placeholder="{{form.username.label}}" maxlength="100">
                                 </div>
                             </fieldset>
                         </div>
