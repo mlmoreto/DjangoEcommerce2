@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .forms import UserForm, UserLogin
+from .models import User
 
 
 # Create your views here.
@@ -12,8 +13,23 @@ def show_user(request):
 def cadastro_user(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
-        if form.is_valid() and form.clean_username():
-            pass
+        if form.is_valid():
+            user = User()
+            user.cidade = form.cleaned_data['cidade']
+            user.birthDate = form.cleaned_data['birthDate']
+            user.cpf = form.cleaned_data['cpf']
+            user.email = form.cleaned_data['email']
+            user.estado = form.cleaned_data['estado']
+            user.fone = form.cleaned_data['fone']
+            user.name = form.cleaned_data['name']
+            user.numero = form.cleaned_data['password']
+            user.rua = form.cleaned_data['rua']
+            user.username = form.cleaned_data['username']
+            user.senha = form.cleaned_data['password']
+            user.save()
+            dic = {'mensagem': 'Cadastro',
+                   'body': 'Foi um sucesso'}
+            return render(request, 'userSucesso.html', dic)
         else:
             dic = createForm(False, formUser=form)
             return render(request, 'userForm.html', dic)

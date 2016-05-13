@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django import forms
 from django.core.exceptions import ValidationError
 
@@ -22,7 +24,16 @@ class UserForm(forms.Form):
         if i == 1:
             raise  ValidationError(('Usuário já existe, tente outro apelido'), code='invalid')
             return False
-        return True
+        return data
+
+    def clean_email(self):
+        data = self.cleaned_data['email']
+        i = User.objects.filter(email=data).count()
+        if i == 1:
+            raise ValidationError(('Email já foi utilizado, tente outro email'), code='invalid')
+            return False
+        return data
+
 
 class UserLogin(forms.Form):
     username = forms.CharField(label='Username', max_length=100, required=True)
