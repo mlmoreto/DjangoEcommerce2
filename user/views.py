@@ -22,7 +22,7 @@ def cadastro_user(request):
             user.estado = form.cleaned_data['estado']
             user.fone = form.cleaned_data['fone']
             user.name = form.cleaned_data['name']
-            user.numero = form.cleaned_data['password']
+            user.numero = int(form.cleaned_data['numero'])
             user.rua = form.cleaned_data['rua']
             user.username = form.cleaned_data['username']
             user.senha = form.cleaned_data['password']

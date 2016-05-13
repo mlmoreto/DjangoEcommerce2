@@ -107,7 +107,7 @@ $('#myTabs a').click(function (e) {
                                         </div>
                                         <div class="form-group">
                                             <label for="{{form.password.id_for_label}}">{{form.password.label}}</label>
-                                            <input type="text" id="{{form.password.id_for_label}}"
+                                            <input type="password" id="{{form.password.id_for_label}}"
                                                    name="{{form.password.html_name}}" class="form-control"
                                                    value="{% if form.password.value %}{{form.password.value}}{% endif %}"
                                                    placeholder="{{form.password.label}}" maxlength="100" required>
