@@ -1,5 +1,4 @@
 var cidades = new Object();
-carregarCidades();
 
 function setSelectArray(id, array) {
     var ele = document.getElementById(id);
