@@ -6,3 +6,6 @@ def home(request):
     dic = {'generos' : Genre.objects.all(),
            'games' : Game.objects.all()}
     return render(request, 'home.html', dic)
+
+def sobre(request):
+    return render(request, 'sobre.html')
