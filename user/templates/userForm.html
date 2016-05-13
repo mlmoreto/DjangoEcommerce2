@@ -3,25 +3,30 @@
 {% block content %}
 <script !src="">
 $('#myTabs a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
+  e.preventDefault();
+  $(this).tab('show');
+});
+
 </script>
-<div class="android-content mdl-layout__content">
+<div class="android-content mdl-layout__content" onload="setSelectArray('Olá mundo')">
     <div class="container">
         <div class="android-card-container mdl-grid">
             <div class="col-md-10" id="three-container" onload="">
                 <div class="demo-card-wide mdl-card mdl-shadow--4dp">
                     <ul id="myTabs" class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#login" id="login-tab" role="tab"
-                                                                  data-toggle="tab" aria-controls="login"
-                                                                  aria-expanded="true">Login</a></li>
-                        <li role="presentation"><a href="#cadastro" role="tab" id="cadastro-tab" data-toggle="tab"
-                                                   aria-controls="cadastro">Cadastro</a></li>
+                        <li role="presentation" class="{{loginAtivoTab}}">
+                            <a href="#login" id="login-tab" role="tab"
+                               data-toggle="tab" aria-controls="login"
+                               aria-expanded="true">Login</a></li>
+                        <li role="presentation" class="{{cadastroAtivoTab}}">
+                            <a href="#cadastro"
+                               role="tab" id="cadastro-tab" data-toggle="tab"
+                               aria-controls="cadastro">Cadastro</a></li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade in active" id="login" aria-labelledby="login-tab">
-                            <form method="post" class="form-inline">
+                        <div role="tabpanel" class="tab-pane fade {{loginAtivo}}" id="login"
+                             aria-labelledby="login-tab">
+                            <form action="{% url 'user.views.login_user' %}" method="post" class="form-inline">
                                 {% csrf_token %}
                                 <div class="mdl-card__title">
                                     <h2 class="mdl-card__title-text">Login</h2>
@@ -29,18 +34,34 @@ $('#myTabs a').click(function (e) {
                                 <div class="mdl-card__supporting-text">
                                     <fieldset enable>
                                         <div class="form-group">
-                                            <label for="exampleInputName2">Apelido:</label>
-                                            <input type="text" class="form-control" id="exampleInputName2"
-                                                   placeholder="Jane Doe">
+                                            <label for="{{formLogin.username.id_for_label}}">{{formLogin.username.label}}</label>
+                                            <input type="text" class="form-control"
+                                                   id="{{formLogin.username.id_for_label}}"
+                                                   placeholder="{{formLogin.username.label}}" required>
+                                            {% if formLogin.username.errors%}
+                                            {% for error in formLogin.username.errors %}
+                                            <small class="text-muted">
+                                                {{error|escape}}
+                                            </small>
+                                            {% endfor %}
+                                            {% endif %}
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputEmail2">Password:</label>
-                                            <input type="email" class="form-control" id="exampleInputEmail2"
-                                                   placeholder="jane.doe@example.com">
+                                            <label for="{{formLogin.password.id_for_label}}">{{formLogin.password.label}}</label>
+                                            <input type="password" class="form-control"
+                                                   id="{{formLogin.password.id_for_label}}"
+                                                   placeholder="{{formLogin.password.label}}" required>
+                                            {% if formLogin.password.errors%}
+                                            {% for error in formLogin.password.errors %}
+                                            <small class="text-muted">
+                                                {{error|escape}}
+                                            </small>
+                                            {% endfor %}
+                                            {% endif %}
                                         </div>
                                         <input type="submit"
-                                           class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-                                           value="Logar">
+                                               class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                                               value="Logar">
                                     </fieldset>
                                 </div>
                                 <div class="mdl-card__menu">
@@ -48,8 +69,9 @@ $('#myTabs a').click(function (e) {
                                 </div>
                             </form>
                         </div>
-                        <div role="tabpanel" class="tab-pane fade" id="cadastro" aria-labelledby="cadastro-tab">
-                            <form method="post">
+                        <div role="tabpanel" class="tab-pane fade {{cadastroAtivo}}" id="cadastro"
+                             aria-labelledby="cadastro-tab">
+                            <form method="post" action="{% url 'user.views.cadastro_user' %}">
                                 {% csrf_token %}
                                 <div class="mdl-card__title">
                                     <h2 class="mdl-card__title-text">Cadastro</h2>
@@ -61,7 +83,7 @@ $('#myTabs a').click(function (e) {
                                             <input type="text" id="{{form.name.id_for_label}}"
                                                    name="{{form.name.html_name}}" class="form-control"
                                                    value="{% if form.name.value %}{{form.name.value}}{% endif %}"
-                                                   placeholder="{{form.name.label}}" maxlength="100">
+                                                   placeholder="{{form.name.label}}" maxlength="100" required>
                                             {% if form.name.errors%}
                                             {% for error in form.name.errors %}
                                             <small class="text-muted">
@@ -75,7 +97,7 @@ $('#myTabs a').click(function (e) {
                                             <input type="text" id="{{form.username.id_for_label}}"
                                                    name="{{form.username.html_name}}" class="form-control"
                                                    value="{% if form.username.value %}{{form.username.value}}{% endif %}"
-                                                   placeholder="{{form.username.label}}" maxlength="100">
+                                                   placeholder="{{form.username.label}}" maxlength="100" required>
                                             {% if form.username.errors%}
                                             {% for error in form.username.errors %}
                                             <small class="text-muted">
@@ -89,7 +111,7 @@ $('#myTabs a').click(function (e) {
                                             <input type="password" id="{{form.password.id_for_label}}"
                                                    name="{{form.password.html_name}}" class="form-control"
                                                    value="{% if form.password.value %}{{form.password.value}}{% endif %}"
-                                                   placeholder="{{form.password.label}}" maxlength="100">
+                                                   placeholder="{{form.password.label}}" maxlength="100" required>
                                             {% if form.password.errors%}
                                             {% for error in form.password.errors %}
                                             <small class="text-muted">
@@ -103,7 +125,7 @@ $('#myTabs a').click(function (e) {
                                             <input type="email" id="{{form.email.id_for_label}}"
                                                    name="{{form.email.html_name}}" class="form-control"
                                                    value="{% if form.email.value %}{{form.email.value}}{% endif %}"
-                                                   placeholder="{{form.email.label}}" maxlength="100">
+                                                   placeholder="{{form.email.label}}" maxlength="100" required>
                                             {% if form.email.errors%}
                                             {% for error in form.email.errors %}
                                             <small class="text-muted">
@@ -113,13 +135,106 @@ $('#myTabs a').click(function (e) {
                                             {% endif %}
                                         </div>
                                         <div class="form-group">
-                                            <label for="{{form.birthDate.id_for_label}}">{{form.birthDate.label}}</label>
-                                            <input type="date" id="{{form.birthDate.id_for_label}}"
-                                                   name="{{form.birthDate.html_name}}" class="form-control"
-                                                   value="{% if form.birthDate.value %}{{form.birthDate.value}}{% endif %}"
-                                                   placeholder="{{form.birthDate.label}}" maxlength="100">
-                                            {% if form.birthDate.errors%}
-                                            {% for error in form.birthDate.errors %}
+                                            <div class="bfh-datepicker" data-max="today"
+                                                 data-close="false">
+                                                <label for="{{form.birthDate.id_for_label}}">{{form.birthDate.label}}</label>
+                                                <input type="text" id="{{form.birthDate.id_for_label}}"
+                                                       name="{{form.birthDate.html_name}}" class="form-control"
+                                                       value="{% if form.birthDate.value %}{{form.birthDate.value}}{% endif %}"
+                                                       placeholder="dd/mm/aaaa" maxlength="100" required
+                                                       pattern="^(([0-9])|([0-2][0-9])|(3[0-1]))\/(([1-9])|(0[1-9])|(1[0-2]))\/(([0-9][0-9])|([1-2][0,9][0-9][0-9]))$">
+                                                {% if form.birthDate.errors%}
+                                                {% for error in form.birthDate.errors %}
+                                                <small class="text-muted">
+                                                    {{error|escape}}
+                                                </small>
+                                                {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="{{form.cpf.id_for_label}}">{{form.cpf.label}}</label>
+                                            <input type="text" id="{{form.cpf.id_for_label}}"
+                                                   name="{{form.cpf.html_name}}" class="form-control"
+                                                   value="{% if form.cpf.value %}{{form.cpf.value}}{% endif %}"
+                                                   placeholder="000.000.000-00" maxlength="100"
+                                                   pattern="^\d{3}.\d{3}.\d{3}-\d{2}$" required>
+                                            {% if form.cpf.errors%}
+                                            {% for error in form.cpf.errors %}
+                                            <small class="text-muted">
+                                                {{error|escape}}
+                                            </small>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="{{form.fone.id_for_label}}">{{form.fone.label}}</label>
+                                            <input type="text" id="{{form.fone.id_for_label}}"
+                                                   name="{{form.fone.html_name}}" class="form-control"
+                                                   value="{% if form.fone.value %}{{form.fone.value}}{% endif %}"
+                                                   placeholder="{{form.fone.label}}" maxlength="100" required
+                                                   pattern="^\(\d{2}\) ?\d{4,5}-\d{4}$">
+                                            {% if form.fone.errors%}
+                                            {% for error in form.fone.errors %}
+                                            <small class="text-muted">
+                                                {{error|escape}}
+                                            </small>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="{{form.estado.id_for_label}}">{{form.estado.label}}</label>
+                                            <select name="{{form.estado.html_name}}" id="{{form.estado.id_for_label}}"
+                                                    class="form-control"
+                                                    value="{% if form.estado.value %}{{form.estado.value}}{% endif %}"
+                                                    required onchange="setCidades('{{form.estado.id_for_label}}',
+                                                     '{{form.cidade.id_for_label}}');">
+                                                <!-- Estados adicionado pelo javascript -->
+                                            </select>
+                                            {% if form.estado.errors%}
+                                            {% for error in form.estado.errors %}
+                                            <small class="text-muted">
+                                                {{error|escape}}
+                                            </small>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="{{form.cidade.id_for_label}}">{{form.cidade.label}}</label>
+                                            <select name="{{form.cidade.html_name}}" class="form-control" id="{{form.cidade.id_for_label}}"
+                                                    value="{% if form.cidade.value %}{{form.cidade.value}}{% endif %}" required>
+
+                                            </select>
+                                            {% if form.cidade.errors%}
+                                            {% for error in form.cidade.errors %}
+                                            <small class="text-muted">
+                                                {{error|escape}}
+                                            </small>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="{{form.rua.id_for_label}}">{{form.rua.label}}</label>
+                                            <input type="text" id="{{form.rua.id_for_label}}"
+                                                   name="{{form.rua.html_name}}" class="form-control"
+                                                   value="{% if form.rua.value %}{{form.rua.value}}{% endif %}"
+                                                   placeholder="{{form.rua.label}}" maxlength="100" required>
+                                            {% if form.rua.errors%}
+                                            {% for error in form.rua.errors %}
+                                            <small class="text-muted">
+                                                {{error|escape}}
+                                            </small>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="{{form.numero.id_for_label}}">{{form.numero.label}}</label>
+                                            <input type="text" id="{{form.numero.id_for_label}}"
+                                                   name="{{form.numero.html_name}}" class="form-control"
+                                                   value="{% if form.numero.value %}{{form.numero.value}}{% endif %}"
+                                                   placeholder="{{form.numero.label}}" maxlength="100" required>
+                                            {% if form.numero.errors%}
+                                            {% for error in form.numero.errors %}
                                             <small class="text-muted">
                                                 {{error|escape}}
                                             </small>
@@ -144,6 +259,8 @@ $('#myTabs a').click(function (e) {
         </div>
     </div>
 </div>
-
 </div>
+<script !src="">
+    setEstados('{{form.estado.id_for_label}}');
+</script>
 {% endblock %}
