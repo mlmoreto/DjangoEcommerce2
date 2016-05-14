@@ -52,6 +52,10 @@
         margin-bottom: 40px;
         z-index: 900;
         }
+        a{
+          color: #0B4C5F;
+          font-weight: bold;
+        }
 
     </style>
 </head>
@@ -88,7 +92,7 @@
                 <i class="material-icons">more_vert</i>
             </button>
             <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
-                <li class="mdl-menu__item">fazer</li>
+                <li class="mdl-menu__item"><a href="{% url 'admin:index' %}">Entrar como Administrador</a></li>
                 <li class="mdl-menu__item">fazer</li>
                 <li disabled class="mdl-menu__item">fazer</li>
                 <li class="mdl-menu__item">fazer</li>
