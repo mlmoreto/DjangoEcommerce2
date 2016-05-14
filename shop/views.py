@@ -23,5 +23,6 @@ def jogos(request,slug):
                 break
     dic = {
         'games' : games,
-        'genero' : titulo_genero}
+        'genero' : titulo_genero,
+        'genres' : Genre.objects.all()}
     return render(request, 'jogos.html',dic)
