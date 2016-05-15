@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .forms import UserForm, UserLogin
 from .models import User
-from django.contrib.auth import login
+from django.contrib import auth
 
 
 # Create your views here.
@@ -43,9 +43,7 @@ def login_user(request):
     if request.method == 'POST':
         form = UserLogin(request.POST)
         if form.is_valid():
-            data = data = form.cleaned_data['username'];
-            user = User.objects.filter(username=data)[0]
-            return (login(request, user))
+            print('logou')##Ainda falta salvar o user logado na sessão.
         else:
             dic = createForm(True, formLogin=form)
             return render(request, 'userForm.html', dic)

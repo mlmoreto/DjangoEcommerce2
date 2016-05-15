@@ -45,3 +45,12 @@ class UserLogin(forms.Form):
             raise ValidationError(('Erro usuário ou senha incorreta'), code='invalid')
             return False
         return data
+
+    def clean_password(self):
+        username = self.cleaned_data['username']
+        password = self.cleaned_data['password']
+        user = User.objects.filter(username=username)[0]
+        if(user.check_password(password)):
+            return password
+        else:
+            raise ValidationError(('Erro usuário ou senha incorreta'), code='invalid')
