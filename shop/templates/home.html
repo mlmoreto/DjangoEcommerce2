@@ -74,7 +74,9 @@
             </div>
             {%endfor%}
         </div>
-        {% include "pagination.html" with page=games %}
+        {% if games %}
+          {% include "pagination.html" with page=games %}
+        {% endif %}
     </div>
 </div>
 </div>
