@@ -38,9 +38,8 @@
                     <h3><i class="material-icons" style="font-size:48px;color:red;">cancel</i> Nenhum jogo desse gênero foi encontrado.</h3>
                 </div>
                 {%endfor%}
-                <br>
-                {% include "pagination.html" with page=games %}
             </div>
+            {% include "pagination.html" with page=games %}
         </div>
     </div>
 </div>
