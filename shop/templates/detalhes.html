@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style>
+
+.demo-card-wide > .mdl-card__title {
+  color: #fff;
+  height: 176px;
+  background: url('{{game.card.url}}') center / cover;
+}
+.demo-card-wide > .mdl-card__menu {
+  color: #fff;
+}
+.nome{
+  color: #FFFFFF;
+  font-weight: 900;
+}
+.preco{
+  color: gray;
+  font-size: 24px;
+  font-weight: 900;
+}
+</style>
+<div class="android-content mdl-layout__content">
+  <div class="container">
+    <div class="android-card-container mdl-grid">
+      <div class="col-md-4">
+        <div class="demo-card-wide mdl-card mdl-shadow--8dp">
+          <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text"><span class="nome">{{game.title}}</span></h2>
+          </div>
+          <div class="mdl-card__supporting-text">
+            <span class="preco">
+              <i class="material-icons" style="font-size:24px;">shopping basket</i>R$ {{game.price}}
+            </span>
+          </div>
+          <div class="mdl-card__actions mdl-card--border">
+            {% if game.available %}
+              <a class="btn btn-success">
+                Disponível em Estoque : Sim
+              </a>
+            {% else %}
+              <a class="btn btn-danger">
+                Disponível em Estoque : Não
+              </a>
+            {% endif %}
+          </div>
+          <div class="mdl-card__menu">
+            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+              <i class="material-icons">share</i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="demo-card-wide mdl-card mdl-shadow--8dp">
+          <div class="mdl-card__supporting-text">
+            {{game.description}}
+          </div>
+          <div class="mdl-card__actions mdl-card--border">
+            <a class="btn btn-info" href="#">Comprar</a>
+          </div>
+          <div class="mdl-card__menu">
+            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+              <i class="material-icons">share</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+{% endblock %}
