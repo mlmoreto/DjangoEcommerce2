@@ -9,6 +9,8 @@ $('#myTabs a').click(function (e) {
 
 
 
+
+
 </script>
 <div class="android-content mdl-layout__content">
     <div class="container">
@@ -35,33 +37,31 @@ $('#myTabs a').click(function (e) {
                                 </div>
                                 <div class="mdl-card__supporting-text">
                                     <fieldset enable>
-                                        <div class="form-group">
+                                        <div class="form-group
+                                        {% if formLogin.username.errors or formLogin.password.errors%}
+                                        mdl-badge mdl-badge--overlap
+                                        {% endif %}"
+                                             data-badge="{% if formLogin.username.errors or formLogin.password.errors%}!{% endif %}">
                                             <label for="{{formLogin.username.id_for_label}}">{{formLogin.username.label}}</label>
                                             <input type="text" class="form-control"
                                                    id="{{formLogin.username.id_for_label}}"
                                                    name="{{formLogin.username.html_name}}"
-                                                   placeholder="{{formLogin.username.label}}" required>
-                                            {% if formLogin.username.errors%}
-                                            {% for error in formLogin.username.errors %}
-                                            <small class="text-muted">
-                                                {{error|escape}}
-                                            </small>
-                                            {% endfor %}
-                                            {% endif %}
+                                                   placeholder="{{formLogin.username.label}}"
+                                                   value="{% if formLogin.username.value %}{{formLogin.username.value}}{% endif %}"
+                                                   required>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group
+                                        {% if formLogin.username.errors or formLogin.password.errors%}
+                                        mdl-badge mdl-badge--overlap
+                                        {% endif %}"
+                                             data-badge="{% if formLogin.username.errors or formLogin.password.errors%}!{% endif %}">
                                             <label for="{{formLogin.password.id_for_label}}">{{formLogin.password.label}}</label>
                                             <input type="password" class="form-control"
                                                    id="{{formLogin.password.id_for_label}}"
                                                    name="{{formLogin.password.html_name}}"
-                                                   placeholder="{{formLogin.password.label}}" required>
-                                            {% if formLogin.password.errors%}
-                                            {% for error in formLogin.password.errors %}
-                                            <small class="text-muted">
-                                                {{error|escape}}
-                                            </small>
-                                            {% endfor %}
-                                            {% endif %}
+                                                   placeholder="{{formLogin.password.label}}"
+                                                   value="{% if formLogin.password.value %}{{formLogin.password.value}}{% endif %}"
+                                                   required>
                                         </div>
                                         <input type="submit"
                                                class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
@@ -281,6 +281,8 @@ $('#myTabs a').click(function (e) {
     });
     $('#{{form.birthDate.id_for_label}}').mask('00/00/0000');
     $('#{{form.cpf.id_for_label}}').mask('000.000.000-00');
+
+
 
 
 </script>

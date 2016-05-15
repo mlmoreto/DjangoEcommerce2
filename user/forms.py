@@ -1,9 +1,8 @@
-from datetime import datetime
-
 from django import forms
 from django.core.exceptions import ValidationError
 
 from .models import User
+
 
 class UserForm(forms.Form):
     name = forms.CharField(label='Nome', max_length=100, required=True)
@@ -22,7 +21,7 @@ class UserForm(forms.Form):
         data = self.cleaned_data['username']
         i = User.objects.filter(username=data).count()
         if i == 1:
-            raise  ValidationError(('Usuário já existe, tente outro apelido'), code='invalid')
+            raise ValidationError(('Usuário já existe, tente outro apelido'), code='invalid')
             return False
         return data
 
@@ -38,3 +37,11 @@ class UserForm(forms.Form):
 class UserLogin(forms.Form):
     username = forms.CharField(label='Username', max_length=100, required=True)
     password = forms.CharField(label='Password', max_length=100, required=True)
+
+    def clean_username(self):
+        data = self.cleaned_data['username']
+        i = User.objects.filter(username=data).count()
+        if i == 0:
+            raise ValidationError(('Erro usuário ou senha incorreta'), code='invalid')
+            return False
+        return data
