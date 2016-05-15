@@ -1,10 +1,21 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from django.http import HttpResponse
 from shop.models import Genre, Game
 
 def home(request):
+    games = Game.objects.all()
+    paginator = Paginator(games, 8) #8 jogos por página
+    page = request.GET.get('page')
+    try:
+        games = paginator.page(page)
+    except PageNotAnInteger:
+        games = paginator.page(1)
+    except EmptyPage:
+        games = paginator.page(paginator.num_pages)
     dic = {'generos' : Genre.objects.all(),
-           'games' : Game.objects.all()}
+           'games' : games,
+           'page' : page}
     return render(request, 'home.html', dic)
 
 def sobre(request):
@@ -21,8 +32,17 @@ def jogos(request,slug):
                 games.append(j)
                 titulo_genero = g.title
                 break
+    paginator = Paginator(games, 8) #8 jogos por página
+    page = request.GET.get('page')
+    try:
+        games = paginator.page(page)
+    except PageNotAnInteger:
+        games = paginator.page(1)
+    except EmptyPage:
+        games = paginator.page(paginator.num_pages)
     dic = {
         'games' : games,
+        'page' :page,
         'genero' : titulo_genero,
         'genres' : Genre.objects.all()}
     return render(request, 'jogos.html',dic)
