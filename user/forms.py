@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django import forms
 from django.core.exceptions import ValidationError
 
@@ -33,6 +35,15 @@ class UserForm(forms.Form):
             return False
         return data
 
+    def clean_birthDate(self):
+        data = self.cleaned_data['birthDate']
+        now = datetime.now().date()
+        if (data < now):
+            return data
+        else:
+            raise ValidationError(('Data inválida'), code='invalid')
+            return False
+
 
 class UserLogin(forms.Form):
     username = forms.CharField(label='Username', max_length=100, required=True)
@@ -50,7 +61,7 @@ class UserLogin(forms.Form):
         username = self.cleaned_data['username']
         password = self.cleaned_data['password']
         user = User.objects.filter(username=username)[0]
-        if(user.check_password(password)):
+        if (user.check_password(password)):
             return password
         else:
             raise ValidationError(('Erro usuário ou senha incorreta'), code='invalid')
