@@ -126,3 +126,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, STATIC_URL)
 MEDIA_URL = '/media/' #consegui gui
 MEDIA_ROOT = os.path.join(BASE_DIR, 'shop/media/')
 
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+
+AUTHENTICATION_BACKENDS = ('user.backends.UserCustomBackend','django.contrib.auth.backends.ModelBackend')

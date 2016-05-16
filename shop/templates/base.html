@@ -85,7 +85,7 @@
                 <nav class="android-navigation mdl-navigation">
                     <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">OFERTAS</a>
                     <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{% url 'shop.views.sobre' %}">SOBRE</a>
-                    <a class="btn btn-info" href="{% url 'user.views.show_user' %}">INICIAR SESSÃO</a>
+                    <a class="btn btn-info" href="{% url 'user.views.show_user' %}">INICIAR SESSÃO{{user.get_username}}</a>
                 </nav>
             </div>
             <button class="android-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect"

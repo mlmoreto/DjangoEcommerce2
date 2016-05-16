@@ -1,6 +1,7 @@
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.db import models
 
+
 class User(AbstractBaseUser):
     username = models.CharField(max_length=100, unique=True, db_index=True)
     email = models.EmailField(max_length=100, unique=True, db_index=True)
@@ -15,10 +16,19 @@ class User(AbstractBaseUser):
     fone = models.CharField(max_length=20)
     USERNAME_FIELD = 'username';
     REQUIRED_FIELDS = []
+    backend = ''
 
     class Meta:
         ordering = ('username', 'email',)
         verbose_name = 'User'
         verbose_name_plural = 'Users'
+
     def __str__(self):
         return self.username
+
+    def save(self, *args, **kwargs):
+        self.set_password(self.password)
+        try:
+            super(User, self).save(*args, **kwargs)
+        except:
+            super(User, self).save(*args, **kwargs, force_update=True)

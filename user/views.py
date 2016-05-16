@@ -1,7 +1,9 @@
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from .forms import UserForm, UserLogin
 from .models import User
-from django.contrib import auth
+from django.contrib.auth import login
 
 
 # Create your views here.
@@ -26,7 +28,7 @@ def cadastro_user(request):
             user.numero = int(form.cleaned_data['numero'])
             user.rua = form.cleaned_data['rua']
             user.username = form.cleaned_data['username']
-            user.set_password(form.cleaned_data['password'])
+            user.password = form.cleaned_data['password']
             user.save()
             dic = {'mensagem': 'Cadastro',
                    'body': 'Foi um sucesso'}
@@ -43,13 +45,14 @@ def login_user(request):
     if request.method == 'POST':
         form = UserLogin(request.POST)
         if form.is_valid():
-            print('logou')##Ainda falta salvar o user logado na sessão.
+            from .backends import UserCustomBackend
+            backend = UserCustomBackend()
+            user = backend.authenticate(form.cleaned_data['username'],form.cleaned_data['password'])
+            login(request,user)
+            return HttpResponseRedirect(reverse('shop.views.home'))
         else:
             dic = createForm(True, formLogin=form)
             return render(request, 'userForm.html', dic)
-
-        dic = createForm(True, formLogin=form)
-        return render(request, 'userForm.html', dic)
     else:
         dic = createForm(True)
         return render(request, 'userForm.html', dic)
