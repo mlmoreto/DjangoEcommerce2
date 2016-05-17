@@ -9,14 +9,21 @@ def load_backend(path):
     return import_string(path)()
 
 
-class UserCustomBackend(ModelBackend):
+class UserCustomBackend(object):
     def authenticate(self, username=None, password=None, **kwargs):
         try:
             user = User.objects.filter(username=username)[0]
             if (user.check_password(password)):
-                setattr(user, 'backend', load_backend('user.backends.UserCustomBackend'))
                 return user
             else:
                 return None
         except:
             return None
+
+    def get_user(self, user_id):
+        try:
+            return User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return None
+
+

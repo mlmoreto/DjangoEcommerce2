@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from .forms import UserForm, UserLogin
 from .models import User
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate, get_backends
 
 
 # Create your views here.
@@ -45,9 +45,9 @@ def login_user(request):
     if request.method == 'POST':
         form = UserLogin(request.POST)
         if form.is_valid():
-            from .backends import UserCustomBackend
-            backend = UserCustomBackend()
-            user = backend.authenticate(form.cleaned_data['username'],form.cleaned_data['password'])
+            get_backends()
+            user = authenticate(username=form.cleaned_data['username'],
+                         password=form.cleaned_data['password'])
             login(request, user)
             return HttpResponseRedirect(reverse('shop.views.home'))
         else:
