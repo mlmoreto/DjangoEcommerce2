@@ -16,7 +16,22 @@ class User(AbstractBaseUser):
     fone = models.CharField(max_length=20)
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
-    backend = ''
+
+    #Fields for validation, permissions
+    is_staff = False
+    is_active = True
+    is_superuser = False
+    user_permissions = None
+
+    def has_perms(self, perm_list, obj=None):
+        return False
+
+    def has_module_perms(self, app_label):
+        return False
+
+    def has_module_perms(self, app_label):
+        return False
+    #Fim
 
     class Meta:
         ordering = ('username', 'email',)

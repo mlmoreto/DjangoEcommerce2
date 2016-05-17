@@ -50,18 +50,23 @@ class UserLogin(forms.Form):
     password = forms.CharField(label='Password', max_length=100, required=True)
 
     def clean_username(self):
-        data = self.cleaned_data['username']
-        i = User.objects.filter(username=data).count()
-        if i == 0:
+        try:
+            data = self.cleaned_data['username']
+            i = User.objects.filter(username=data).count()
+            if i == 0:
+                raise ValidationError(('Erro usuário ou senha incorreta'), code='invalid')
+            return data
+        except:
             raise ValidationError(('Erro usuário ou senha incorreta'), code='invalid')
-            return False
-        return data
 
     def clean_password(self):
-        username = self.cleaned_data['username']
-        password = self.cleaned_data['password']
-        user = User.objects.filter(username=username)[0]
-        if (user.check_password(password)):
-            return password
-        else:
+        try:
+            username = self.cleaned_data['username']
+            password = self.cleaned_data['password']
+            user = User.objects.filter(username=username)[0]
+            if (user.check_password(password)):
+                return password
+            else:
+                raise ValidationError(('Erro usuário ou senha incorreta'), code='invalid')
+        except:
             raise ValidationError(('Erro usuário ou senha incorreta'), code='invalid')

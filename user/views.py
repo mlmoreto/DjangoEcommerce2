@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from .forms import UserForm, UserLogin
 from .models import User
-from django.contrib.auth import login, authenticate, get_backends
+from django.contrib.auth import login, authenticate, get_backends, logout
 
 
 # Create your views here.
@@ -40,7 +40,6 @@ def cadastro_user(request):
         dic = createForm(False)
         return render(request, 'userForm.html', dic)
 
-
 def login_user(request):
     if request.method == 'POST':
         form = UserLogin(request.POST)
@@ -67,3 +66,7 @@ def createForm(active, formLogin=UserLogin(), formUser=UserForm()):
            'cadastroAtivo': '' if active else ' in active'
            }
     return dic;
+
+def deslogar(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('shop.views.home'))

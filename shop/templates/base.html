@@ -58,6 +58,7 @@
           font-weight: bold;
         }
 
+
     </style>
 </head>
 
@@ -85,7 +86,8 @@
                 <nav class="android-navigation mdl-navigation">
                     <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">OFERTAS</a>
                     <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{% url 'shop.views.sobre' %}">SOBRE</a>
-                    <a class="btn btn-info" href="{% url 'user.views.show_user' %}">INICIAR SESSÃO{{user.get_username}}</a>
+                    <a class="btn btn-info" href="{% if user.is_authenticated %}{% url 'user.views.deslogar' %}
+                                                  {% else %}{% url 'user.views.show_user' %}{% endif %}">INICIAR SESSÃO{{user.get_username}}</a>
                 </nav>
             </div>
             <button class="android-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect"

@@ -12,7 +12,7 @@ def load_backend(path):
 class UserCustomBackend(object):
     def authenticate(self, username=None, password=None, **kwargs):
         try:
-            user = User.objects.filter(username=username)[0]
+            user = User.objects.get(username=username)
             if (user.check_password(password)):
                 return user
             else:
