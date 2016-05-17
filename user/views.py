@@ -48,7 +48,7 @@ def login_user(request):
             from .backends import UserCustomBackend
             backend = UserCustomBackend()
             user = backend.authenticate(form.cleaned_data['username'],form.cleaned_data['password'])
-            login(request,user)
+            login(request, user)
             return HttpResponseRedirect(reverse('shop.views.home'))
         else:
             dic = createForm(True, formLogin=form)

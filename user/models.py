@@ -14,7 +14,7 @@ class User(AbstractBaseUser):
     estado = models.CharField(max_length=50)
     numero = models.DecimalField(decimal_places=0, max_digits=10)
     fone = models.CharField(max_length=20)
-    USERNAME_FIELD = 'username';
+    USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
     backend = ''
 

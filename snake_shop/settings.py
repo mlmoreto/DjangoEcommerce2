@@ -129,3 +129,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'shop/media/')
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 AUTHENTICATION_BACKENDS = ('user.backends.UserCustomBackend','django.contrib.auth.backends.ModelBackend')
+
+SESSION_SERIALIZER = ['django.contrib.sessions.serializers.PickleSerializer',
+                      'django.contrib.sessions.serializers.JSONSerializer']
