@@ -15,8 +15,7 @@
   See the License for the specific language governing permissions and
   limitations under the License
 -->
-<!doctype html>
-{% load static %}
+<!doctype html> {% load static %}
 <html lang="en">
 
 <head>
@@ -36,8 +35,7 @@
     <script src="{% static 'js/treestyle.js' %}"></script>
     <script src="{% static 'js/TweenMax.min.js' %}"></script>
     <script src="{% static 'js/formLoader.js' %}"></script>
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="{% static 'css/material.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
@@ -45,102 +43,117 @@
     <link rel="stylesheet" href="{% static 'css/customize.css' %}">
     <style>
         #view-source {
-        position: fixed;
-        display: block;
-        right: 0;
-        bottom: 0;
-        margin-right: 40px;
-        margin-bottom: 40px;
-        z-index: 900;
+            position: fixed;
+            display: block;
+            right: 0;
+            bottom: 0;
+            margin-right: 40px;
+            margin-bottom: 40px;
+            z-index: 900;
         }
-        a{
-          color: #0B4C5F;
-          font-weight: bold;
+        
+        a {
+            color: #0B4C5F;
+            font-weight: bold;
         }
-
-
     </style>
 </head>
 
 <body>
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
-    <div class="android-header mdl-layout__header mdl-layout__header--waterfall">
-        <div class="mdl-layout__header-row">
-            <i class="material-icons">home</i>
-            <span class="android-title mdl-layout-title">
+        <div class="android-header mdl-layout__header mdl-layout__header--waterfall">
+            <div class="mdl-layout__header-row">
+                <i class="material-icons">home</i>
+                <span class="android-title mdl-layout-title">
               <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{% url 'shop.views.home' %}">HOME PAGE</a>
             </span>
-            <!-- Add spacer, to align navigation to the right in desktop -->
-            <div class="android-header-spacer mdl-layout-spacer"></div>
-            <div class="android-search-box mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right mdl-textfield--full-width">
-                <label class="mdl-button mdl-js-button mdl-button--icon" for="search-field">
-                    <i class="material-icons">search</i>
-                </label>
-                <div class="mdl-textfield__expandable-holder">
-                    <input class="mdl-textfield__input" type="text" id="search-field">
+                <!-- Add spacer, to align navigation to the right in desktop -->
+                <div class="android-header-spacer mdl-layout-spacer"></div>
+                <div class="android-search-box mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right mdl-textfield--full-width">
+                    <label class="mdl-button mdl-js-button mdl-button--icon" for="search-field">
+                        <i class="material-icons">search</i>
+                    </label>
+                    <div class="mdl-textfield__expandable-holder">
+                        <input class="mdl-textfield__input" type="text" id="search-field">
+                    </div>
                 </div>
+                <!-- Navigation -->
+                <div class="android-navigation-container">
+                    <nav class="android-navigation mdl-navigation">
+                        <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">OFERTAS</a>
+                        <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{% url 'shop.views.sobre' %}">SOBRE</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {% if user.is_authenticated %}Bem Vindo {{user.get_username}} {% else %}INICIAR SESSÃO{% endif %}<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% if user.is_authenticated %}
+                {% else %}{% url 'user.views.show_user' %}{% endif %}">{% if user.is_authenticated %}Minha Conta
+                {% else %}Logar{% endif %}</a></li>
+                                {% if user.is_authenticated == True %}
+                                <li><a href="{% if user.is_authenticated %}
+                {% else %}{% url 'user.views.show_user' %}{% endif %}">{% if user.is_authenticated %}Meus Pedidos
+                {% endif %}</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="{% if user.is_authenticated %}{% url 'user.views.deslogar' %}
+                {% else %}{% url 'user.views.show_user' %}{% endif %}">{% if user.is_authenticated %}Sair
+                {% else %}{% endif %}</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <button class="android-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
+                    <i class="material-icons">more_vert</i>
+                </button>
+                <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
+                    <li class="mdl-menu__item"><a href="{% url 'admin:index' %}">Entrar como Administrador</a></li>
+                    <li class="mdl-menu__item">fazer</li>
+                    <li disabled class="mdl-menu__item">fazer</li>
+                    <li class="mdl-menu__item">fazer</li>
+                </ul>
             </div>
-            <!-- Navigation -->
-            <div class="android-navigation-container">
-                <nav class="android-navigation mdl-navigation">
-                    <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">OFERTAS</a>
-                    <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{% url 'shop.views.sobre' %}">SOBRE</a>
-                    <a class="btn btn-info" href="{% if user.is_authenticated %}{% url 'user.views.deslogar' %}
-                                                  {% else %}{% url 'user.views.show_user' %}{% endif %}">INICIAR SESSÃO{{user.get_username}}</a>
-                </nav>
-            </div>
-            <button class="android-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect"
-                    id="more-button">
-                <i class="material-icons">more_vert</i>
-            </button>
-            <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
-                <li class="mdl-menu__item"><a href="{% url 'admin:index' %}">Entrar como Administrador</a></li>
-                <li class="mdl-menu__item">fazer</li>
-                <li disabled class="mdl-menu__item">fazer</li>
-                <li class="mdl-menu__item">fazer</li>
-            </ul>
         </div>
-    </div>
 
-    <div class="container">
-        <div class="col-md-12">
-            <div class="page-header">
-                <h1><img
+        <div class="container">
+            <div class="col-md-12">
+                <div class="page-header">
+                    <h1><img
                         src="{% static 'img/logaster_No_2_small_size_385x75_pixels_(PNG)/1_Primary_logo_on_transparent_385x75.png' %}">
                     <small>Aqui não tem Game Over</small>
                 </h1>
-            </div>
-            {% block content %}{% endblock %}
-        </div>
-        <footer class="android-footer mdl-mega-footer">
-            <div class="mdl-mega-footer--top-section">
-                <div class="mdl-mega-footer--left-section">
-                    <button class="mdl-mega-footer--social-btn"></button>
-                    &nbsp;
-                    <button class="mdl-mega-footer--social-btn"></button>
-                    &nbsp;
-                    <button class="mdl-mega-footer--social-btn"></button>
                 </div>
-                <div class="mdl-mega-footer--right-section">
-                    <a class="mdl-typography--font-light" href="#top">
+                {% block content %}{% endblock %}
+            </div>
+            <footer class="android-footer mdl-mega-footer">
+                <div class="mdl-mega-footer--top-section">
+                    <div class="mdl-mega-footer--left-section">
+                        <button class="mdl-mega-footer--social-btn"></button>
+                        &nbsp;
+                        <button class="mdl-mega-footer--social-btn"></button>
+                        &nbsp;
+                        <button class="mdl-mega-footer--social-btn"></button>
+                    </div>
+                    <div class="mdl-mega-footer--right-section">
+                        <a class="mdl-typography--font-light" href="#top">
                         Voltar ao topo
                         <i class="material-icons">expand_less</i>
                     </a>
+                    </div>
                 </div>
-            </div>
 
-            <div class="mdl-mega-footer--middle-section">
-                <p class="mdl-typography--font-light">SNAKEGAMES: © 2016</p>
-                <p class="mdl-typography--font-light">Aqui você encontra os melhores jogos</p>
-            </div>
-        </footer>
+                <div class="mdl-mega-footer--middle-section">
+                    <p class="mdl-typography--font-light">SNAKEGAMES: © 2016</p>
+                    <p class="mdl-typography--font-light">Aqui você encontra os melhores jogos</p>
+                </div>
+            </footer>
+        </div>
     </div>
-</div>
 
-<a href="#" target="_blank" id="view-source"
-   class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">Encontrar
+    <a href="#" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">Encontrar
     Função Aqui</a>
-<script src="{% static 'js/material.min.js' %}"></script>
+    <script src="{% static 'js/material.min.js' %}"></script>
 </body>
+
 </html>
