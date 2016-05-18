@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 
 # Create your models here.
@@ -18,7 +19,7 @@ class Game(models.Model):
     slug = models.CharField(max_length=130, db_index=True, unique=True)
     image = models.ImageField(upload_to='%Y/%m/%d', blank=True)
     card = models.ImageField(upload_to='logos/%Y/%m/%d', blank=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0.1)])
     stock = models.PositiveIntegerField()
     available = models.BooleanField(default=True)
     genres = models.ManyToManyField(Genre, blank=False)
@@ -29,7 +30,7 @@ class Game(models.Model):
     cooperation = models.BooleanField(default=False)
     offline = models.BooleanField(default=True)
     specifications = models.TextField(max_length=1000, default="")
-    purchase_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    purchase_price = models.DecimalField(max_digits=10, decimal_places=2, default=0, validators=[MinValueValidator(0.1)])
 
 
     class Meta:
