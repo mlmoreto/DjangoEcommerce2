@@ -7,5 +7,4 @@ class UserAdmin(admin.ModelAdmin):
     prepopulated_fields = {'username': ('name',)}
     list_filter = ['data', 'birthDate', 'last_login', 'estado']
     search_fields = ['name', 'username', 'email', 'estado', 'cidade']
-
 admin.site.register(User, UserAdmin)

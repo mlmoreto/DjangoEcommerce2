@@ -10,7 +10,6 @@ class GameAdmin(admin.ModelAdmin):
     list_filter = ['available', 'created']
     list_editable = ['price', 'stock']
     search_fields = ['title', 'description']
-
 admin.site.register(Game, GameAdmin)
 
 class GenreAdmin(admin.ModelAdmin):
