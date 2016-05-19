@@ -22,11 +22,7 @@
                         </div>
                         {%for g in games %}
                         <div class="item">
-                            <img src="{{g.image.url}}" alt="{{g.title}}">
-                            <div class="carousel-caption">
-                                <h3>{{g.title}}</h3>
-                                <p>{{g.description|truncatewords:"10"}}</p>
-                            </div>
+                            <a href="/detalhes/{{g.slug}}/"><img src="{{g.image.url}}" alt="{{g.title}}"></a>
                         </div>
                         {%endfor%}
                     </div>
@@ -49,8 +45,6 @@
         </div>
 
     </div>
-
-
     <div class="android-more-section">
         <div class="android-section-title mdl-typography--display-1-color-contrast">Games</div>
         <div class="android-card-container mdl-grid">
