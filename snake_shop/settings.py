@@ -129,3 +129,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'shop/media/')
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 AUTHENTICATION_BACKENDS = ('user.backends.UserCustomBackend','django.contrib.auth.backends.ModelBackend')
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'djangoifsp@gmail.com'
+EMAIL_HOST_PASSWORD = 'django123456'
+EMAIL_PORT = 587

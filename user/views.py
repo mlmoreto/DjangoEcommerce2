@@ -4,8 +4,9 @@ from django.shortcuts import render
 from .forms import UserForm, UserLogin, UserRecuperar
 from .models import User
 from django.contrib.auth import login, authenticate, get_backends, logout
-
-
+import random
+from django.core.mail import send_mail
+from snake_shop import settings
 # Create your views here.
 
 def show_user(request):
@@ -77,6 +78,26 @@ def recuperarSenha(request):
     if request.method == 'POST':
         form = UserRecuperar(request.POST)
         if form.is_valid():
+
+            email = form.cleaned_data['email']
+            user = User.objects.get(email=email)
+            user.is_password_generated = True
+
+            senha = ['z','x','c','v','b','n','m','a','s','d','f','g','h','j','k','l','q','w','e','r','t','y','u','i','o','p']
+            random.shuffle(senha)
+            newSenha = ''
+            for c in senha[:7]:
+                newSenha += c
+            user.password = newSenha
+
+            #email
+            msg = ("Usuário: " + user.username +"\nSenha: " + user.password)
+            to_list = [user.email]
+            send_mail('Recuperação de Senha SNAKEGAMES', msg, settings.EMAIL_HOST_USER,
+                      to_list, fail_silently=True)
+            #fim
+
+            user.save()
             dic = {'mensagem': 'Recuperar Senha',
                    'body': 'Foi um sucesso!!'}
             return render(request, 'userSucesso.html', dic)

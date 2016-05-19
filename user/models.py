@@ -17,6 +17,9 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
 
+    ##Field para verificação de necessiade de troca de senha
+    is_password_generated = False
+
     #Fields for validation, permissions
     is_staff = False
     is_active = True
