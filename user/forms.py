@@ -70,3 +70,17 @@ class UserLogin(forms.Form):
                 raise ValidationError(('Erro usuário ou senha incorreta'), code='invalid')
         except:
             raise ValidationError(('Erro usuário ou senha incorreta'), code='invalid')
+
+class UserRecuperar (forms.Form):
+    email = forms.CharField(label='Email', max_length=100, required=True)
+
+    def clean_email(self):
+        try:
+            data = self.cleaned_data['email']
+            i = User.objects.filter(email=data).count()
+            if( i == 1):
+                return data
+            else:
+                raise ValidationError(('Erro email não encontrado'), code='invalid')
+        except:
+            raise ValidationError(('Erro email não encontrado'), code='invalid')

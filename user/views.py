@@ -1,7 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from .forms import UserForm, UserLogin
+from .forms import UserForm, UserLogin, UserRecuperar
 from .models import User
 from django.contrib.auth import login, authenticate, get_backends, logout
 
@@ -57,16 +57,32 @@ def login_user(request):
         return render(request, 'userForm.html', dic)
 
 
-def createForm(active, formLogin=UserLogin(), formUser=UserForm()):
+def createForm(active, formLogin=UserLogin(), formUser=UserForm(), formRecuperar=UserRecuperar()):
     dic = {'form': formUser,
            'formLogin': formLogin,
            'loginAtivoTab': 'active' if active else '',
            'cadastroAtivoTab': '' if active else 'active',
            'loginAtivo': ' in active' if active else '',
-           'cadastroAtivo': '' if active else ' in active'
+           'cadastroAtivo': '' if active else ' in active',
+           'formRecuperar': formRecuperar
            }
-    return dic;
+    return dic
 
 def deslogar(request):
     logout(request)
     return HttpResponseRedirect(reverse('shop.views.home'))
+
+
+def recuperarSenha(request):
+    if request.method == 'POST':
+        form = UserRecuperar(request.POST)
+        if form.is_valid():
+            dic = {'mensagem': 'Recuperar Senha',
+                   'body': 'Foi um sucesso!!'}
+            return render(request, 'userSucesso.html', dic)
+        else:
+            dic = createForm(True, formRecuperar=form)
+            return render(request, 'userForm.html', dic)
+    else:
+        dic = createForm(True)
+        return render(request, 'userForm.html', dic)

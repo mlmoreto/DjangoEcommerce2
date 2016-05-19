@@ -6,11 +6,6 @@ $('#myTabs a').click(function (e) {
   e.preventDefault();
   $(this).tab('show');
 });
-
-
-
-
-
 </script>
 <div class="android-content mdl-layout__content">
     <div class="container">
@@ -66,10 +61,16 @@ $('#myTabs a').click(function (e) {
                                         <input type="submit"
                                                class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
                                                value="Logar">
+                                        <br>
                                     </fieldset>
+                                    <br>
                                 </div>
-                                <div class="mdl-card__menu">
+                                <div class="mdl-card__actions mdl-card--border">
                                     <!-- Implmentar logar com facebook -->
+                                    <button type="button" id="idRecuperar"
+                                            class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                                            data-toggle="modal" data-target="#myModal">Recuperar Senha
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -261,6 +262,49 @@ $('#myTabs a').click(function (e) {
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content Recuperar Senha-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Recuperar Senha</h4>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'user.views.recuperarSenha' %}" method="post">
+                    {% csrf_token %}
+                    <div class="mdl-card__supporting-text">
+                        <fieldset enable>
+                            <div class="form-group">
+                                <label for="{{formRecuperar.email.id_for_label}}">{{formRecuperar.email.label}}</label>
+                                <input type="email" class="form-control"
+                                       id="{{formRecuperar.email.id_for_label}}"
+                                       name="{{formRecuperar.email.html_name}}"
+                                       placeholder="{{formRecuperar.email.label}}"
+                                       value="{% if formRecuperar.email.value %}{{formRecuperar.email.value}}{% endif %}"
+                                       required>
+                            </div>
+                            <input type="submit"
+                                   class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                                   value="Enviar">
+                            {% if formRecuperar.email.errors%}
+                            {% for error in formRecuperar.email.errors %}
+                            <small class="text-muted">
+                                {{error|escape}}
+                            </small>
+                            {% endfor %}
+                            {% endif %}
+                        </fieldset>
+                        <br>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
 </div>
 <script !src="">
     setEstados('{{form.estado.id_for_label}}');
@@ -284,8 +328,8 @@ $('#myTabs a').click(function (e) {
     $('#{{form.birthDate.id_for_label}}').mask('00/00/0000');
     $('#{{form.cpf.id_for_label}}').mask('000.000.000-00');
 
-
-
-
+    {% if formRecuperar.email.errors%}
+        document.getElementById('idRecuperar').click();
+    {% endif %}
 </script>
 {% endblock %}
