@@ -5,10 +5,10 @@ from .models import Game, Genre
 
 class GameAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
-    list_display = ['title', 'slug', 'price', 'stock', 'available', 'purchase_price', 'created']
+    list_display = ['title', 'slug', 'price', 'stock','desconto', 'available', 'purchase_price', 'created']
     prepopulated_fields = {'slug': ('title',)}
     list_filter = ['available', 'created']
-    list_editable = ['price', 'stock']
+    list_editable = ['price', 'stock', 'desconto']
     search_fields = ['title', 'description']
 admin.site.register(Game, GameAdmin)
 

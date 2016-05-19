@@ -1,4 +1,4 @@
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
 # Create your models here.
@@ -31,6 +31,7 @@ class Game(models.Model):
     offline = models.BooleanField(default=True)
     specifications = models.TextField(max_length=1000, default="")
     purchase_price = models.DecimalField(max_digits=10, decimal_places=2, default=0, validators=[MinValueValidator(0.1)])
+    desconto = models.DecimalField(max_digits=10, decimal_places=2, default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
 
     class Meta:
         verbose_name = 'Game'
@@ -40,3 +41,9 @@ class Game(models.Model):
 
     def __str__(self):
         return self.title
+
+    def getValor(self):
+        des = self.desconto / 100.0
+        valor = self.price
+        valor = valor - (valor * des)
+        return valor
