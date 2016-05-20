@@ -3,5 +3,8 @@ from . import views
 
 urlpatterns = [
     url(r'^$',views.home),
-    url(r'^sobre/',views.sobre)
+    url(r'^sobre/',views.sobre),
+    url(r'^search/',views.searchGames),
+    url(r'^detalhes/(?P<slug>[\w_-]+)/$', views.detalhes, name='detalhes'),
+    url(r'^(?P<slug>[\w-]+)/$', views.jogos, name='jogos'),
 ]

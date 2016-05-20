@@ -2,6 +2,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from shop.models import Genre, Game
+from django.db.models import Q
 
 def home(request):
     games = Game.objects.all().order_by('created').reverse()[:8]
@@ -52,3 +53,27 @@ def detalhes(request, slug):
     dic = {
         'game' : game}
     return render(request, 'detalhes.html', dic)
+
+def searchGames(request):
+    query = None
+    try:
+        query = request.GET.get('query')
+        request.session['query'] = query
+    except:
+        query = request.session.get('query')
+
+    jogos = Game.objects.filter(Q(title__contains=query) | Q(description__contains=query))
+    paginator = Paginator(jogos, 8)  # 8 jogos por página
+    page = request.GET.get('page')
+    try:
+        games = paginator.page(page)
+    except PageNotAnInteger:
+        games = paginator.page(1)
+    except EmptyPage:
+        games = paginator.page(paginator.num_pages)
+    dic = {
+        'games': games,
+        'page': page,
+        'genero': query,
+        'genres': Genre.objects.all()}
+    return render(request, 'jogos.html', dic)
