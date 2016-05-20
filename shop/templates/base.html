@@ -85,7 +85,7 @@
                         <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{% url 'shop.views.sobre' %}">SOBRE</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {% if user.is_authenticated %}Bem Vindo {{user.get_username}} {% else %}INICIAR SESSÃO{% endif %}<span class="caret"></span>
+                                {% if user.is_authenticated %}Bem Vindo, {{user.get_username}} {% else %}INICIAR SESSÃO{% endif %}<span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a href="{% if user.is_authenticated %}
