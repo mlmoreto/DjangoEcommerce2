@@ -40,7 +40,7 @@
                 {%endfor%}
             </div>
             {% if games %}
-                {% include "pagination.html" with page=games %}
+                {% include "pagination.html" with page=games query=genero %}
             {% endif %}
         </div>
     </div>

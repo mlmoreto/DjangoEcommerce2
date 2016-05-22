@@ -2,7 +2,7 @@
     <ul class="pagination pagination-lg">
         {% if page.has_previous %}
         <li>
-            <a href="?page={{ page.previous_page_number }}" aria-label="Previous">
+            <a href="?page={{ page.previous_page_number }}{% if query != None %}&query={{query}}{% endif %}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
@@ -16,7 +16,7 @@
         <li class="active"><a href="#">{{ page.number }}</a></li>
         {% if page.has_next %}
         <li>
-            <a href="?page={{ page.next_page_number }}" aria-label="Next">
+            <a href="?page={{ page.next_page_number }}{% if query != None %}&query={{query}}{% endif %}" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
