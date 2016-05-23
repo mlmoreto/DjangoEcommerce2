@@ -49,7 +49,13 @@
         <div class="android-section-title mdl-typography--display-1-color-contrast">Games</div>
         <div class="android-card-container mdl-grid">
             {%for g in games%}
-            <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
+            <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp ">
+                {% if g.desconto != 0%}
+                <div class="corner-ribbon shadow bottom-right
+                    {%if g.desconto != 100%}red {% else %} black {% endif%}">
+                    <p>{{g.desconto|floatformat:0}}% OFF</p>
+                </div>
+                {% endif %}
                 <div class="mdl-card__media">
                     <img src="{{g.card.url}}">
                 </div>
@@ -60,8 +66,9 @@
                     <span class="mdl-typography--font-light mdl-typography--subhead">{{g.description|truncatewords:"20"}}</span>
                 </div>
                 <div class="mdl-card__actions">
-                    <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="detalhes/{{g.slug}}">
-                       Detalhes
+                    <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase"
+                       href="detalhes/{{g.slug}}">
+                        R$: {{g.getValor|floatformat:2}}
                         <i class="material-icons">chevron_right</i>
                     </a>
                 </div>
@@ -69,7 +76,7 @@
             {%endfor%}
         </div>
         {% if games %}
-          {% include "pagination.html" with page=games %}
+        {% include "pagination.html" with page=games %}
         {% endif %}
     </div>
 </div>
