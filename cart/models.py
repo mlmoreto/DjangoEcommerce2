@@ -25,7 +25,7 @@ class Cart(models.Model):
         try:
             item.save()
         except:
-            if (quantidade != 1):
+            if (quantidade >= 1):
                 item = Item.objects.get(game_id=id_game, cart_id=self.id)
                 item.quantidade = quantidade
                 item.save(force_update=True)
