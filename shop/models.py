@@ -1,3 +1,5 @@
+from _decimal import Decimal
+
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
@@ -43,7 +45,7 @@ class Game(models.Model):
         return self.title
 
     def getValor(self):
-        des = self.desconto / 100.0
+        des = self.desconto / Decimal(100.0)
         valor = self.price
         valor = valor - (valor * des)
         return valor

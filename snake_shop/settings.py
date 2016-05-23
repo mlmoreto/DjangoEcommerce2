@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'shop',
     'user',
     'cart',
+    'history',
 ]
 
 MIDDLEWARE_CLASSES = [

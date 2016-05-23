@@ -5,7 +5,7 @@ from django.core.validators import MinValueValidator
 
 
 class Cart(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, unique=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     update = models.DateField(auto_now_add=True)
 
     class Meta:
