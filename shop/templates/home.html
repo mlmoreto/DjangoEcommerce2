@@ -4,46 +4,60 @@
 <div class="android-content mdl-layout__content">
     <a name="top"></a>
     <div class="container">
-        <div class="android-card-container mdl-grid">
-            <div class="col-md-3">
-                <ul class="list-group">
-                    <li class="list-group-item">Gêneros</li>
-                    {% for g in generos %}
-                    <li class="list-group-item"><a href="{{g.slug}}">{{g.title}}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="col-md-6" id="three-container">
-
-                <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner" role="listbox">
-                        <div class="item active">
-                            <img src="{% static 'images/testeimg2.jpg' %}" alt="erro">
+        <div class="row">
+            <div class="android-card-container mdl-grid">
+                <div class="col-md-3">
+                    <ul class="list-group">
+                        <li class="list-group-item">Gêneros</li>
+                        {% for g in generos %}
+                        <li class="list-group-item"><a href="{{g.slug}}">{{g.title}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-md-6" id="three-container">
+                    <div class="carousel slide myCarousel" data-ride="carousel" interval="20">
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <img src="{% static 'images/testeimg2.jpg' %}" alt="erro">
+                                <div class="carousel-caption">
+                                    <h5>SnakeGames</h5>
+                                    <p></p>
+                                </div>
+                            </div>
+                            {%for g in games %}
+                            <div class="item">
+                                {% if g.desconto != 0%}
+                                <div class="corner-ribbon shadow bottom-right {%if g.desconto != 100%}red {% else %} black {% endif%}">
+                                    <p>{{g.desconto|floatformat:0}}% OFF</p>
+                                </div>
+                                {% endif %}
+                                <a href="/detalhes/{{g.slug}}/"><img src="{{g.image.url}}" alt="{{g.title}}"></a>
+                                <div class="carousel-caption">
+                                    <h5>{{g.title}}</h5>
+                                    <p>{{g.description}}</p>
+                                    <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase"
+                                       href="detalhes/{{g.slug}}">
+                                        R$: {{g.getValor|floatformat:2}}
+                                        <i class="material-icons">chevron_right</i>
+                                    </a>
+                                </div>
+                            </div>
+                            {%endfor%}
                         </div>
-                        {%for g in games %}
-                        <div class="item">
-                            <a href="/detalhes/{{g.slug}}/"><img src="{{g.image.url}}" alt="{{g.title}}"></a>
-                        </div>
-                        {%endfor%}
+                        <a class="left carousel-control" href=".myCarousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Anterior</span>
+                        </a>
+                        <a class="right carousel-control" href=".myCarousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Próximo</span>
+                        </a>
                     </div>
-
-
-                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                        <span class="sr-only">Anterior</span>
-                    </a>
-                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                        <span class="sr-only">Próximo</span>
-                    </a>
+                    <div class="descricao new-caption-area">
+                    </div>
                 </div>
             </div>
-
-            <div class="col-md-3">
-
-            </div>
         </div>
-
     </div>
     <div class="android-more-section">
         <div class="android-section-title mdl-typography--display-1-color-contrast">Games</div>

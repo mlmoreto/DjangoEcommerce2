@@ -1,36 +1,52 @@
 .carousel-inner {
-    height: 300px;
+    height: auto;    
 }
 .carousel-inner .item {
-    overflow: hidden;
     max-width: 100%;
     max-height: 100%;
-}
-/* Since positioning the image, we need to help out the caption */
-.carousel-caption {
-    z-index: 10;
-    background: rgba(0, 0, 0, 0.75);
-}
-.carousel-inner > .item > img {
- /*  position: absolute;*/
-  top: 0;
-  left: 0;
-  min-width: 40%;
-  max-width: 100%;
-  max-height: 380px;
-  width: auto;
-  margin-right:auto;
-  margin-left:auto;
-  height:auto;
 }
 
 .demo-card-wide.mdl-card {
     width: 100%;
-    }
-    .demo-card-wide > .mdl-card__title {
+}
+
+.demo-card-wide > .mdl-card__title {
     color: #fff;
     height: 176px;
-    }
-    .demo-card-wide > .mdl-card__menu {
+}
+.demo-card-wide > .mdl-card__menu {
     color: #fff;
-    }
+}
+
+.carousel-control {
+  top:45%;  
+  width:auto;
+  height:1em;
+  background:transparent;  
+}
+.carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right  {  
+  width:auto;
+}
+
+.right.carousel-control{
+    right: 15px;
+}
+
+.left.carousel-control{
+    left: 15px;
+}
+
+.carousel .item img{
+    border-radius: 20px 20px;
+}
+
+.descricao{
+    overflow: hidden;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: auto;
+}
+
+.descricao h5{
+    text-align: center;
+}
