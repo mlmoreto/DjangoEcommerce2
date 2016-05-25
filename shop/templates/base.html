@@ -95,11 +95,11 @@
                             {%endif %}<span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="{% if user.is_authenticated %}
+                            <li><a href="{% if user.is_authenticated %}{% url 'user.views.minha_conta' %}
                 {% else %}{% url 'user.views.show_user' %}{% endif %}">{% if user.is_authenticated %}Minha Conta
                                 {% else %}Logar{% endif %}</a></li>
                             {% if user.is_authenticated == True %}
-                            <li><a href="{% if user.is_authenticated %}
+                            <li><a href="{% if user.is_authenticated %}{% url 'user.views.meu_carrinho' %}
                 {% else %}{% url 'user.views.show_user' %}{% endif %}">{% if user.is_authenticated %}Meus Pedidos
                                 {% endif %}</a></li>
                             <li role="separator" class="divider"></li>
