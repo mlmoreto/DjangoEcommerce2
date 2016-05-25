@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!-- Icon List -->
+<style>
+.demo-list-icon {
+  width: 300px;
+}
+</style>
+<div class="android-content mdl-layout__content">
+  <div class="container">
+
+      <div class="col-md-3">
+        <div class="row">
+
+            <div class="thumbnail">
+              <img src="{% static 'images/cerebro.jpg' %}" alt="userimg">
+              <div class="caption">
+                <h4>Bem Vindo, nome</h4>
+                  <ul class="demo-list-icon mdl-list">
+                    <li class="mdl-list__item">
+                      <span class="mdl-list__item-primary-content">
+                      <i class="material-icons mdl-list__item-icon">shopping_cart</i>
+                      <a href="{% url 'user.views.meu_carrinho' %}">Meu Carrinho</a>
+                  </span>
+                    </li>
+                    <li class="mdl-list__item">
+                      <span class="mdl-list__item-primary-content">
+                      <i class="material-icons mdl-list__item-icon">list</i>
+                      <a href="{% url 'user.views.meu_historico' %}">Histórico de Compras</a>
+                    </span>
+                    </li>
+                    <li class="mdl-list__item">
+                      <span class="mdl-list__item-primary-content">
+                      <i class="material-icons mdl-list__item-icon">description</i>
+                      <a href="{% url 'user.views.meus_dados' %}">Meus dados</a>
+                    </span>
+                    </li>
+                  </ul>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+          {% block usuario_conteudo %}{% endblock %}
+      </div>
+
+  </div>
+</div>
+</div>
+{% endblock %}

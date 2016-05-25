@@ -73,6 +73,18 @@ def deslogar(request):
     logout(request)
     return HttpResponseRedirect(reverse('shop.views.home'))
 
+def minha_conta(request):
+    return render(request, 'usuario_home.html')
+
+def meu_carrinho(request):
+    return render(request, 'usuario_carrinho.html')
+
+def meu_historico(request):
+    return render(request, 'usuario_historico.html')
+
+def meus_dados(request):
+    return render(request, 'usuario_dados.html')
+
 
 def recuperarSenha(request):
     if request.method == 'POST':
