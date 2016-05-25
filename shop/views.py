@@ -5,7 +5,7 @@ from shop.models import Genre, Game
 from django.db.models import Q
 
 def home(request):
-    games = Game.objects.all().order_by('created').reverse()[:8]
+    games = Game.objects.all().order_by('created').reverse()
     paginator = Paginator(games, 8) #8 jogos por página
     page = request.GET.get('page')
     try:
