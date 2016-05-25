@@ -8,7 +8,7 @@ class GameAdmin(admin.ModelAdmin):
     list_display = ['title', 'slug', 'price', 'stock','desconto', 'available', 'purchase_price', 'created']
     prepopulated_fields = {'slug': ('title',)}
     list_filter = ['available', 'created']
-    list_editable = ['price', 'stock', 'desconto']
+    list_editable = ['price', 'stock', 'desconto','purchase_price']
     search_fields = ['title', 'description']
 admin.site.register(Game, GameAdmin)
 
