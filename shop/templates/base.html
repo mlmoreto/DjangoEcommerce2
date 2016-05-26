@@ -21,9 +21,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Introducing Lollipop, a sweet new take on Android.">
+    <meta name="description" content="SnakeGames, Aqui você encontra os melhores jogos.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>SNAKEGAMES - HOME</title>
+    <title>SNAKEGAMES - Aqui você encontra os melhores jogos</title>
 
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
     <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
@@ -55,7 +55,7 @@
             margin-bottom: 40px;
             z-index: 900;
         }
-        
+
         a {
             color: #0B4C5F;
             font-weight: bold;
@@ -70,7 +70,7 @@
         <div class="mdl-layout__header-row">
             <i class="material-icons">home</i>
                 <span class="android-title mdl-layout-title">
-              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{% url 'shop.views.home' %}">HOME PAGE</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{% url 'shop.views.home' %}" id = "link-home">HOME PAGE</a>
             </span>
             <!-- Add spacer, to align navigation to the right in desktop -->
             <div class="android-header-spacer mdl-layout-spacer"></div>
@@ -88,7 +88,7 @@
             <div class="android-navigation-container">
                 <nav class="android-navigation mdl-navigation">
                     <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">OFERTAS</a>
-                    <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{% url 'shop.views.sobre' %}">SOBRE</a>
+                    <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{% url 'shop.views.sobre' %}" id = "link-sobre">SOBRE</a>
                     <div class="btn-group">
                         <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -97,7 +97,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a href="{% if user.is_authenticated %}{% url 'user.views.minha_conta' %}
-                {% else %}{% url 'user.views.show_user' %}{% endif %}">{% if user.is_authenticated %}Minha Conta
+                {% else %}{% url 'user.views.show_user' %}{% endif %}" id = "link-usuario">{% if user.is_authenticated %}Minha Conta
                                 {% else %}Logar{% endif %}</a></li>
                             {% if user.is_authenticated == True %}
                             <li><a href="{% if user.is_authenticated %}{% url 'user.views.meu_carrinho' %}
@@ -105,8 +105,10 @@
                                 {% endif %}</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="{% if user.is_authenticated %}{% url 'user.views.deslogar' %}
-                {% else %}{% url 'user.views.show_user' %}{% endif %}">{% if user.is_authenticated %}Sair
+                {% else %}{% url 'user.views.show_user' %}{% endif %}" id = "link-sair">{% if user.is_authenticated %}Sair
                                 {% else %}{% endif %}</a></li>
+                            {% else %}
+                              <input type="hidden" id="link-sair" onclick="alert('Você não está logado!')"></input>
                             {% endif %}
                         </ul>
                     </div>
@@ -117,7 +119,7 @@
                 <i class="material-icons">more_vert</i>
             </button>
             <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
-                <li class="mdl-menu__item"><a href="{% url 'admin:index' %}">Entrar como Administrador</a></li>
+                <li class="mdl-menu__item"><a href="{% url 'admin:index' %}" id="link-admin">Entrar como Administrador</a></li>
                 <li class="mdl-menu__item">fazer</li>
                 <li disabled class="mdl-menu__item">fazer</li>
                 <li class="mdl-menu__item">fazer</li>
