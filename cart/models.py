@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.db import models
 from user.models import User
 from shop.models import Game
@@ -44,6 +45,12 @@ class Cart(models.Model):
     def getItens(self):
         itens = Item.objects.filter(cart_id=self.id)
         return itens
+
+    def getTotal(self):
+        total = Decimal(0.0)
+        for i in self.getItens():
+            total += (i.quantidade * i.game.getValor())
+        return total
 
 
 class Item(models.Model):

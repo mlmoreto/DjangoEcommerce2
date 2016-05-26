@@ -16,16 +16,35 @@
             <tbody>
             {% for g in user.getCart.getItens%}
             <tr>
-                <td><a href="../../../detalhes/{{g.game.slug}}"><img src="{{g.game.card.url}}" alt="{{g.game.tittle}}" width="184" height="69"></a></td>
+                <td><a href="../../../detalhes/{{g.game.slug}}"><img src="{{g.game.card.url}}" alt="{{g.game.tittle}}"
+                                                                     width="184" height="69"></a></td>
                 <td>
                     <form action="../../../cart/change/{{g.game.slug}}" method="get">
                         <input name="quantidade" type="number" value="{{g.quantidade}}">
-                    </form></td>
+                    </form>
+                </td>
                 <td>R$: {{g.game.getValor|floatformat:2}}</td>
                 <td>R$: {{g.getTotal|floatformat:2}}</td>
                 <td><a href="../../../cart/del/{{g.game.slug}}"><i class="material-icons">delete_forever</i></a></td>
             </tr>
             {% endfor %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Total R$: {{user.getCart.getTotal|floatformat:2}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                       href="http://localhost:8000/">
+                    Finalizar Compra
+                </a></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
             </tbody>
         </table>
     </div>
