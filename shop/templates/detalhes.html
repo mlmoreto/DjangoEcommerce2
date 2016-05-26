@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+
 <style>
 
 .demo-card-wide > .mdl-card__title {
@@ -15,12 +16,85 @@
   color: #FFFFFF;
   font-weight: 900;
 }
-.preco{
-  color: gray;
-  font-size: 24px;
-  font-weight: 900;
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+h1 {
+  letter-spacing: 0px;
+  letter-spacing: .02rem;
+  font-size: 48px;
+  font-size: 3rem;
+}
+
+h3 {
+  color: #666;
+  font-size: 19px;
+  font-size: 1.2rem;
+}
+
+.description {
+  margin-top: 20px;
+  width: 100%;
+}
+
+a {
+  text-decoration:none;
+}
+a:hover {
+  text-decoration:underline;
+  color:#666;
+}
+button {
+  background:#333;
+  border:none;
+  font-weight:400;
+  height:40px;
+  margin-top:auto;
+  margin-bottom:auto;
+  padding-left:25px;
+  padding-right:25px;
+  box-sizing:border-box;
+  color:#fff;
+  cursor:pointer;
+  -webkit-transition:all .3s ease;
+          transition:all .3s ease;
+}
+button:hover {
+  background:#555;
+  -webkit-transition:all .3s ease;
+          transition:all .3s ease;
+}
+.divider {
+  width:80%;
+  height:1px;
+  background:#ddd;
+  margin-top:20px;
+  margin-bottom:20px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.purchase-info {
+  -webkit-box-pack:justify;
+  -webkit-justify-content:space-between;
+      -ms-flex-pack:justify;
+          justify-content:space-between;
+  display:-webkit-box;
+  display:-webkit-flex;
+  display:-ms-flexbox;
+  display:flex;
+}
+.price {
+  font-size: 40px;
+  font-size:2.5rem;
+}
+
 }
 </style>
+
 <div class="android-content mdl-layout__content">
   <div class="container">
     <div class="android-card-container mdl-grid">
@@ -30,9 +104,7 @@
             <h2 class="mdl-card__title-text"><span class="nome">{{game.title}}</span></h2>
           </div>
           <div class="mdl-card__supporting-text">
-            <span class="preco">
-              <i class="material-icons" style="font-size:24px;">shopping basket</i>R$ {{game.price}}
-            </span>
+
           </div>
           <div class="mdl-card__actions mdl-card--border">
             {% if game.available %}
@@ -45,27 +117,23 @@
               </a>
             {% endif %}
           </div>
-          <div class="mdl-card__menu">
-            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-              <i class="material-icons">share</i>
-            </button>
-          </div>
         </div>
       </div>
       <div class="col-md-8">
-        <div class="demo-card-wide mdl-card mdl-shadow--8dp">
-          <div class="mdl-card__supporting-text">
-            <span class="mdl-typography--font-light mdl-typography--subhead">{{game.description}}</span>
-          </div>
-          <div class="mdl-card__actions mdl-card--border">
-            <a class="btn btn-info" href="/add/{{game.slug}}">Comprar</a>
-          </div>
-          <div class="mdl-card__menu">
-            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-              <i class="material-icons">share</i>
-            </button>
-          </div>
-        </div>
+    <div class='main-content'>
+      <h1>{{game.title}}</h1>
+      <h3>{% for genre in game.genres.all %} {{genre.title}}; {% endfor %}</h3>
+  <div class='description' id='description'>
+    {{game.description}}
+  </div>
+      <div class='highlight-window  mobile' id='product-img'><div class='highlight-overlay' id='highlight-overlay-mobile'></div></div>
+            <div class='divider'></div>
+
+          <div class='purchase-info'>
+      <div class='price'>R${{game.price}}</div>
+            <button onclick="window.location.href='/add/{{game.slug}}'">ADICIONAR AO CARRINHO</button>
+    </div>
+    </div>
       </div>
     </div>
   </div>
