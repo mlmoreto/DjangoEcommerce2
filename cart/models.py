@@ -52,3 +52,6 @@ class Item(models.Model):
 
     def __str__(self):
         return self.cart.user.username
+
+    def getTotal(self):
+        return self.quantidade * self.game.getValor()

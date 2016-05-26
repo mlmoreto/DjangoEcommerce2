@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^user/', include('user.urls')),
     url(r'^shop/', include('shop.urls')),
+    url(r'^cart/', include('cart.urls')),
     url(r'^detalhes/(?P<slug>[\w_-]+)/$', views.detalhes, name='detalhes'),
     url(r'^(?P<slug>[\w-]+)/$',views.jogos, name='jogos'),
     url(r'^$', include('shop.urls'))## cuidado é & e não $-- é $ do outro não roda

@@ -49,3 +49,14 @@ class User(AbstractBaseUser):
             super(User, self).save(*args, **kwargs)
         except:
             super(User, self).save(*args, **kwargs, force_update=True)
+
+    def getCart(self):
+        from cart.models import Cart
+        try:
+            car = Cart.objects.get(user=self)
+            return car
+        except:
+            car = Cart()
+            car.user = self
+            car.save()
+            return car

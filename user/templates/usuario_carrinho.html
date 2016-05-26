@@ -2,33 +2,32 @@
 {% load static %}
 {% block usuario_conteudo %}
 <div class="android-content mdl-layout__content">
-  <div class="container">
-    <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--8dp">
-      <thead>
-        <tr>
-          <th class="mdl-data-table__cell--non-numeric">Material</th>
-          <th>Quantity</th>
-          <th>Unit price</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="mdl-data-table__cell--non-numeric"><img src="{% static 'images/card1.jpg' %}" alt="userimg"></td>
-          <td>25</td>
-          <td>$2.90</td>
-        </tr>
-        <tr>
-          <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
-          <td>50</td>
-          <td>$1.25</td>
-        </tr>
-        <tr>
-          <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
-          <td>10</td>
-          <td>$2.35</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <div class="container">
+        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--8dp">
+            <thead>
+            <tr>
+                <th class="mdl-data-table__cell--non-numeric">Game</th>
+                <th>Quantidade</th>
+                <th>Preço unitário</th>
+                <th>Total</th>
+                <th>Remover</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for g in user.getCart.getItens%}
+            <tr>
+                <td><img src="{{g.game.card.url}}" alt="{{g.game.tittle}}" width="184" height="69"></td>
+                <td>
+                    <form action="../../../cart/change/{{g.game.slug}}" method="get">
+                        <input name="quantidade" type="number" value="{{g.quantidade}}">
+                    </form></td>
+                <td>R$: {{g.game.getValor|floatformat:2}}</td>
+                <td>R$: {{g.getTotal|floatformat:2}}</td>
+                <td><a href="../../../cart/del/{{g.game.slug}}"><i class="material-icons">delete_forever</i></a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}
