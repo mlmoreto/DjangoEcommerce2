@@ -36,6 +36,7 @@
     <script src="{% static 'js/TweenMax.min.js' %}"></script>
     <script src="{% static 'js/formLoader.js' %}"></script>
     <script src="{% static 'js/slink.js' %}"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -78,7 +79,7 @@
                     <i class="material-icons">search</i>
                 </label>
                 <div class="mdl-textfield__expandable-holder">
-                    <form action="{% url 'shop.views.searchGames' %}" method="get">
+                    <form action="{% url 'shop.views.searchGames' %}" method="get" id = 'form-pesquisar'>
                         <input class="mdl-textfield__input" type="text" id="search-field" name="query">
                     </form>
                 </div>
