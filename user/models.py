@@ -1,7 +1,6 @@
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.db import models
 
-## difernciar isinstance(args, User().__class__)
 class User(AbstractBaseUser):
     username = models.CharField(max_length=100, unique=True, db_index=True)
     email = models.EmailField(max_length=100, unique=True, db_index=True)
