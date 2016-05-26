@@ -160,11 +160,11 @@
 </div>
 
 {% if user.is_authenticated %}
-    <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast"
-      id="btn-carrinho" href="{% url 'user.views.meu_carrinho' %}">Itens no Carrinho &nbsp;&nbsp;<span class="badge">0</span></a> 
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast"
+      id="btn-carrinho" onclick="window.location.href='{% url 'user.views.meu_carrinho' %}'">Itens no Carrinho &nbsp;&nbsp;<span class="badge">0</span></button>
 {% else %}
-    <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast"
-      id="btn-carrinho" href="{% url 'user.views.show_user' %}">Fazer Login</a>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast"
+        id="btn-carrinho" onclick="window.location.href='{% url 'user.views.show_user' %}'">Fazer Login</button>
 {% endif %}
 <script src="{% static 'js/material.min.js' %}"></script>
 </body>
