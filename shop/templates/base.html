@@ -164,7 +164,8 @@
 
 {% if user.is_authenticated %}
     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast"
-      id="btn-carrinho" onclick="window.location.href='{% url 'user.views.meu_carrinho' %}'">Itens no Carrinho &nbsp;&nbsp;<span class="badge">0</span></button>
+      id="btn-carrinho" onclick="window.location.href='{% url 'user.views.meu_carrinho' %}'">Itens no Carrinho &nbsp;&nbsp;<span class="badge">
+        {{ user.getCart.size }}</span></button>
 {% else %}
     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast"
         id="btn-carrinho" onclick="window.location.href='{% url 'user.views.show_user' %}'">Fazer Login</button>

@@ -130,7 +130,7 @@ button:hover {
             <div class='divider'></div>
 
           <div class='purchase-info'>
-      <div class='price'>R${{game.price}}</div>
+      <div class='price'>R${{game.getValor|floatformat:2}}</div>
             <button onclick="window.location.href='../../cart/add/{{game.slug}}'">ADICIONAR AO CARRINHO</button>
     </div>
     </div>

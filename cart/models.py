@@ -7,6 +7,7 @@ from django.core.validators import MinValueValidator
 class Cart(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     update = models.DateField(auto_now_add=True)
+    size = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = 'Carrinho'
@@ -24,6 +25,8 @@ class Cart(models.Model):
         item.quantidade = quantidade
         try:
             item.save()
+            self.size += 1
+            self.save()
         except:
             if (quantidade >= 1):
                 item = Item.objects.get(game_id=id_game, cart_id=self.id)
@@ -33,6 +36,10 @@ class Cart(models.Model):
     def deleteItem(self, id_game):
         item = Item.objects.get(game_id=id_game, cart_id=self.id)
         item.delete()
+        self.size += -1
+        if(self.size < 0):
+            self.size = 0
+        self.save()
 
     def getItens(self):
         itens = Item.objects.filter(cart_id=self.id)

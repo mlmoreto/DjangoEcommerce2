@@ -16,7 +16,7 @@
             <tbody>
             {% for g in user.getCart.getItens%}
             <tr>
-                <td><img src="{{g.game.card.url}}" alt="{{g.game.tittle}}" width="184" height="69"></td>
+                <td><a href="../../../detalhes/{{g.game.slug}}"><img src="{{g.game.card.url}}" alt="{{g.game.tittle}}" width="184" height="69"></a></td>
                 <td>
                     <form action="../../../cart/change/{{g.game.slug}}" method="get">
                         <input name="quantidade" type="number" value="{{g.quantidade}}">
