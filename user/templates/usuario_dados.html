@@ -1,4 +1,58 @@
 {% extends "usuario_home.html" %}
 {% load static %}
 {% block usuario_conteudo %}
+<style>
+.demo-card-square.mdl-card {
+  width: 100%;
+  height: auto;
+}
+</style>
+<div class="demo-card-square mdl-card mdl-shadow--8dp">
+  <div class="mdl-card__title mdl-card--expand">
+    <h2 class="mdl-card__title-text">Meus Dados</h2>
+  </div>
+  <div class="mdl-card__supporting-text">
+    <div class="input-group">
+      <span class="input-group-addon" id="sizing-addon2">Nome </span>
+      <input type="text" class="form-control" placeholder="Nome" aria-describedby="sizing-addon2" value="{{user.name}}">
+    </div><br>
+    <div class="input-group">
+      <span class="input-group-addon" id="sizing-addon2">Username </span>
+      <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2" value="{{user.username}}">
+    </div><br>
+    <div class="input-group">
+      <span class="input-group-addon" id="sizing-addon2">Email </span>
+      <input type="text" class="form-control" placeholder="exemplo@email.com" aria-describedby="sizing-addon2" value="{{user.email}}">
+    </div><br>
+    <div class="input-group">
+      <span class="input-group-addon" id="sizing-addon2">Telefone </span>
+      <input type="text" class="form-control" placeholder="(11)1111-1111" aria-describedby="sizing-addon2" value="{{user.fone}}">
+    </div><br>
+    <div class="input-group">
+      <span class="input-group-addon" id="sizing-addon2">Data de Nascimento </span>
+      <input type="text" class="form-control" placeholder="99/99/9999" aria-describedby="sizing-addon2" value="{{user.birthDate}}">
+    </div><br>
+    <div class="input-group">
+      <span class="input-group-addon" id="sizing-addon2">CPF </span>
+      <input type="text" class="form-control" placeholder="999.999.999-99" aria-describedby="sizing-addon2" value="{{user.cpf}}">
+    </div><br>
+    <div class="input-group">
+      <span class="input-group-addon" id="sizing-addon2">Rua </span>
+      <input type="text" class="form-control" placeholder="Rua" aria-describedby="sizing-addon2" value="{{user.rua}}">
+    </div><br>
+    <div class="input-group">
+      <span class="input-group-addon" id="sizing-addon2">Cidade </span>
+      <input type="text" class="form-control" placeholder="Cidade" aria-describedby="sizing-addon2" value="{{user.cidade}}">
+    </div><br>
+    <div class="input-group">
+      <span class="input-group-addon" id="sizing-addon2">Número </span>
+      <input type="text" class="form-control" placeholder="Número" aria-describedby="sizing-addon2" value="{{user.numero}}">
+    </div><br>
+  </div>
+  <div class="mdl-card__actions mdl-card--border">
+    <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+      Atualizar Dados Cadastrais
+    </a>
+  </div>
+</div>
 {% endblock %}
