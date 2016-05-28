@@ -307,4 +307,30 @@ $('#myTabs a').click(function (e) {
         </div>
     </div>
 </div>
+<script>
+     setEstados('{{form.estado.id_for_label}}');
+     carregarCidades();
+     {% if form.estado.value %}
+     setOption('{{form.estado.id_for_label}}', '{{form.estado.value}}');
+         {% if form.cidade.value %}
+             setCidades('{{form.estado.id_for_label}}','{{form.cidade.id_for_label}}');
+             setOption('{{form.cidade.id_for_label}}', '{{form.cidade.value}}');
+         {% endif %}
+     {% else %}
+        setCidades('{{form.estado.id_for_label}}','{{form.cidade.id_for_label}}');
+     {% endif %}
+
+     $('#{{form.fone.id_for_label}}').maskbrphone({
+     useDdd           : true,
+     useDddParenthesis: true,
+     dddSeparator     : ' ',
+     numberSeparator  : '-'
+     });
+     $('#{{form.birthDate.id_for_label}}').mask('00/00/0000');
+     $('#{{form.cpf.id_for_label}}').mask('000.000.000-00');
+
+     {% if formRecuperar.email.errors%}
+         document.getElementById('idRecuperar').click();
+     {% endif %}
+</script>
 {% endblock %}
