@@ -93,50 +93,68 @@ button:hover {
 }
 
 }
+
+
+
+
 </style>
 
 <div class="android-content mdl-layout__content">
-  <div class="container">
-    <div class="android-card-container mdl-grid">
-      <div class="col-md-4">
-        <div class="demo-card-wide mdl-card mdl-shadow--8dp">
-          <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text"><span class="nome">{{game.title}}</span></h2>
-          </div>
-          <div class="mdl-card__supporting-text">
+    <div class="container">
+        <div class="android-card-container mdl-grid">
+            <div class="col-md-4">
+                <div class="demo-card-wide mdl-card mdl-shadow--8dp">
+                    <div class="mdl-card__title">
 
-          </div>
-          <div class="mdl-card__actions mdl-card--border">
-            {% if game.available %}
-              <a class="btn btn-success">
-                Disponível em Estoque : Sim
-              </a>
-            {% else %}
-              <a class="btn btn-danger">
-                Disponível em Estoque : Não
-              </a>
-            {% endif %}
-          </div>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        <h4>{{game.title}}</h4>
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        {% if game.hasStock %}
+                        <a class="btn btn-success">
+                            Disponível
+                        </a>
+                        {% else %}
+                        <a class="btn btn-danger">
+                            Esgotado
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class='main-content'>
+                    <h1>{{game.title}}</h1>
+                    <h3>{% for genre in game.genres.all %} {{genre.title}}; {% endfor %}</h3>
+                    <div class='description' id='description'>
+                        {{game.description}}
+                    </div>
+                    <div class='highlight-window  mobile' id='product-img'>
+                        <div class='highlight-overlay' id='highlight-overlay-mobile'></div>
+                    </div>
+                    <div class='divider'></div>
+                    <div class='purchase-info'>
+                        {% if game.desconto != 0%}
+                            <div class="preco"><p><strike>R${{game.price|floatformat:2}}</strike><br>
+                                R${{game.getValor|floatformat:2}}, desconto de {{game.desconto|floatformat:0}}%</p></div>
+                        {% else %}
+                            <div class="preco">Preço: R${{game.getValor|floatformat:2}}</div>
+                        {% endif %}
+
+                        {% if game.hasStock %}
+                        <button class="btn" onclick="window.location.href='../../cart/add/{{game.slug}}'">COMPRAR <i
+                                class="material-icons">add_shopping_cart</i></button>
+                        {% else %}
+                        <button class="btn" onclick="window.location.href='../../cart/add/{{game.slug}}'" disabled>
+                            COMPRAR <i
+                                class="material-icons">add_shopping_cart</i></button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col-md-8">
-    <div class='main-content'>
-      <h1>{{game.title}}</h1>
-      <h3>{% for genre in game.genres.all %} {{genre.title}}; {% endfor %}</h3>
-  <div class='description' id='description'>
-    {{game.description}}
-  </div>
-      <div class='highlight-window  mobile' id='product-img'><div class='highlight-overlay' id='highlight-overlay-mobile'></div></div>
-            <div class='divider'></div>
-
-          <div class='purchase-info'>
-      <div class='price'>R${{game.getValor|floatformat:2}}</div>
-            <button onclick="window.location.href='../../cart/add/{{game.slug}}'">ADICIONAR AO CARRINHO</button>
     </div>
-    </div>
-      </div>
-    </div>
-  </div>
 </div>
 
 </div>

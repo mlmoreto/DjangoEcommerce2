@@ -49,3 +49,6 @@ class Game(models.Model):
         valor = self.price
         valor = valor - (valor * des)
         return valor
+
+    def hasStock(self):
+        return self.stock > 0

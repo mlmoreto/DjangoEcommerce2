@@ -5,7 +5,7 @@ from shop.models import Genre, Game
 from django.db.models import Q
 
 def home(request):
-    games = Game.objects.all().order_by('created').reverse()
+    games = Game.objects.filter(available=True).order_by('created').reverse()
     paginator = Paginator(games, 8) #8 jogos por página
     page = request.GET.get('page')
     try:
@@ -23,7 +23,7 @@ def sobre(request):
     return render(request, 'sobre.html')
 
 def jogos(request,slug):
-    jogos = Game.objects.all()
+    jogos = Game.objects.filter(available=True)
     games = []
     titulo_genero = ""
     for j in jogos:
@@ -62,7 +62,7 @@ def searchGames(request):
     except:
         query = request.session.get('query')
 
-    jogos = Game.objects.filter(Q(title__contains=query) | Q(description__contains=query))
+    jogos = Game.objects.filter(Q(title__contains=query) | Q(description__contains=query)).filter(available=True)
     paginator = Paginator(jogos, 8)  # 8 jogos por página
     page = request.GET.get('page')
     try:

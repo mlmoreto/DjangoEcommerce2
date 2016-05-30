@@ -50,3 +50,11 @@
 .descricao h5{
     text-align: center;
 }
+
+.red{
+    color: red;
+}
+
+.preco p{
+    font-size: 1.8em;
+}
