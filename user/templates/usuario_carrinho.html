@@ -19,8 +19,8 @@
                 <td><a href="../../../detalhes/{{g.game.slug}}"><img src="{{g.game.card.url}}" alt="{{g.game.tittle}}"
                                                                      width="184" height="69"></a></td>
                 <td>
-                    <form action="../../../cart/change/{{g.game.slug}}" method="get">
-                        <input name="quantidade" type="number" value="{{g.quantidade}}">
+                    <form id="{{g.game.slug}}" action="../../../cart/change/{{g.game.slug}}" method="get" onchange="changeQtd('{{g.game.slug}}');">
+                        <input name="quantidade" type="number" value="{{g.quantidade}}" required>
                     </form>
                 </td>
                 <td>R$: {{g.game.getValor|floatformat:2}}</td>

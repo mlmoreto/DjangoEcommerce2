@@ -39,3 +39,8 @@ window.addEventListener('DOMContentLoaded', function() {
         //Funciona somente no google chrome
     }
 }, false);
+
+function changeQtd(id) {
+    var form = document.getElementById(id);
+    form.submit();
+}
