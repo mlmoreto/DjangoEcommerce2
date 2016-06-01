@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$',views.home),
+    url(r'^promocao/',views.promocao),
     url(r'^sobre/',views.sobre),
     url(r'^search/',views.searchGames),
     url(r'^detalhes/(?P<slug>[\w_-]+)/$', views.detalhes, name='detalhes'),

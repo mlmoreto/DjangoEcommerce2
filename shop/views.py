@@ -22,6 +22,28 @@ def home(request):
 def sobre(request):
     return render(request, 'sobre.html')
 
+def promocao(request):
+    jogos = []
+    games = Game.objects.all().order_by('desconto').reverse()
+
+    for g in games:
+       if(g.desconto !=0):
+          jogos.append(g)
+
+
+    paginator = Paginator(jogos, 8) #8 jogos por página
+    page = request.GET.get('page')
+    try:
+        games = paginator.page(page)
+    except PageNotAnInteger:
+        games = paginator.page(1)
+    except EmptyPage:
+        games = paginator.page(paginator.num_pages)
+    dic = {'generos' : Genre.objects.all(),
+           'games' : games,
+           'page' : page}
+    return render(request, 'promocao.html', dic)
+
 def jogos(request,slug):
     jogos = Game.objects.filter(available=True)
     games = []

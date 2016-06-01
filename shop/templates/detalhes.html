@@ -136,8 +136,12 @@ button:hover {
                     <div class='divider'></div>
                     <div class='purchase-info'>
                         {% if game.desconto != 0%}
-                            <div class="preco"><p><strike>R${{game.price|floatformat:2}}</strike><br>
-                                R${{game.getValor|floatformat:2}}, desconto de {{game.desconto|floatformat:0}}%</p></div>
+                            <div class="preco"><p><strike>De: R${{game.price|floatformat:2}}</strike> Por: R${{game.getValor|floatformat:2}}<br>
+                                desconto de {{game.desconto|floatformat:0}}%</p></div>
+
+
+
+
                         {% else %}
                             <div class="preco">Preço: R${{game.getValor|floatformat:2}}</div>
                         {% endif %}
