@@ -22,8 +22,8 @@ class Pedido (models.Model):
 class Produto (models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     game = models.ForeignKey(Game)
-    quantidade = models.PositiveIntegerField(validators=MaxValueValidator(1));
-    valorUnitario = models.DecimalField(max_digits=10, decimal_places=2, default=0, validators=[MinValueValidator(0.1)])
+    quantidade = models.PositiveIntegerField()
+    valorUnitario = models.DecimalField(max_digits=10, decimal_places=2, default=0, validators=[MinValueValidator(0)])
 
     class Meta:
         verbose_name = 'Produto dos Pedidos'
