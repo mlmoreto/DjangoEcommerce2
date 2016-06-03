@@ -24,7 +24,7 @@ def sobre(request):
 
 def promocao(request):
     jogos = []
-    games = Game.objects.all().order_by('desconto').reverse()
+    games = Game.objects.filter(available=True).order_by('desconto').reverse()
 
     for g in games:
        if(g.desconto !=0):
