@@ -13,28 +13,51 @@
             </tr>
             </thead>
             <tbody>
-            {% for p in user.getHistory%}
+            {% for pedido in user.getHistory%}
             <tr>
-                <td data-toggle="collapse" data-target="#{{p.id}}" class="clickable btn btn-info"><i
+                <td data-toggle="collapse" data-target="#{{pedido.id}}" class="clickable btn btn-info"><i
                         class="material-icons">zoom_in</i></td>
-                <td>{{p.id}}</td>
-                <td>{{p.data}}</td>
-                <td>{{p.total}}</td>
-            </tr>
-            {% endfor %}
-            <tr>
-                <td data-toggle="collapse" data-target="#accordion" class="clickable btn btn-info"><i
-                        class="material-icons">zoom_in</i></td>
-                <td>0</td>
-                <td>00/00/0000</td>
-                <td>00,00</td>
-                <td>Cartão</td>
+                <td>{{pedido.id}}</td>
+                <td>{{pedido.data}}</td>
+                <td>{{pedido.total}}</td>
             </tr>
             <tr>
                 <td colspan="4">
-                    <div id="accordion" class="collapse">Hidden by default</div>
+                    <div id="{{pedido.id}}" class="collapse">
+                        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--8dp">
+                            <thead>
+                            <tr>
+                                <th class="mdl-data-table__cell--non-numeric">Game</th>
+                                <th>Quantidade</th>
+                                <th>Preço unitário</th>
+                                <th>Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for produto in pedido.getProdutos %}
+                            <tr>
+                                <td><a href="../../../detalhes/{{produto.game.slug}}"><img src="{{produto.game.card.url}}"
+                                                                                     alt="{{produto.game.tittle}}"
+                                                                                     width="184" height="69"></a></td>
+                                <td>
+                                    {{produto.quantidade}}
+                                </td>
+                                <td>R$: {{produto.valorUnitario|floatformat:2}}</td>
+                                <td>R$: {{produto.getTotal}}</td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>Total R$: {{pedido.total|floatformat:2}}</td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </td>
             </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>

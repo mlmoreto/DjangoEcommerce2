@@ -22,6 +22,7 @@ class Pedido (models.Model):
     def getProdutos(self):
         return Produto.objects.filter(pedido=self)
 
+
 class Produto (models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     game = models.ForeignKey(Game)
@@ -32,6 +33,9 @@ class Produto (models.Model):
         verbose_name = 'Produto dos Pedidos'
         verbose_name_plural = 'Produtos dos Pedidos'
         ordering = ('pedido',)
+
+    def getTotal(self):
+        return Decimal(self.quantidade) * self.valorUnitario
 
 
 def consumeCart(cart):
