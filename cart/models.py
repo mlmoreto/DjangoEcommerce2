@@ -52,6 +52,12 @@ class Cart(models.Model):
             total += (i.quantidade * i.game.getValor())
         return total
 
+    def isValid(self):
+        valid = True
+        for i in self.getItens():
+            valid = valid and (i.game.stock >= i.quantidade)
+        return valid
+
 
 class Item(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
@@ -69,3 +75,4 @@ class Item(models.Model):
 
     def getTotal(self):
         return self.quantidade * self.game.getValor()
+

@@ -40,6 +40,8 @@ def consumeCart(cart):
         p = Produto()
         p.pedido = self
         p.game = item.game
+        item.game.stock += - (item.quantidade)
+        item.game.save(force_update=True)
         p.quantidade = item.quantidade
         p.valorUnitario = Decimal(item.game.getValor())
         p.save()
