@@ -4,6 +4,7 @@ from django.contrib.admin.views.main import ChangeList
 from django.db.models import Sum, Avg
 from .models import Pedido, Produto
 
+
 # Register your models here.
 class TotalPedido(ChangeList):
     fields_to_total = ['total']
@@ -22,6 +23,11 @@ class TotalPedido(ChangeList):
         len(self.result_list)
         self.result_list._result_cache.append(total)
 
+
+class ProdutoInline(admin.TabularInline):
+    model = Produto
+
+
 class PedidoAdmin(admin.ModelAdmin):
     date_hierarchy = 'data'
     list_display = ['user', 'data', 'total']
@@ -29,13 +35,17 @@ class PedidoAdmin(admin.ModelAdmin):
         ('data', DateRangeFilter),
     )
     search_fields = ['data']
+    inlines = [ProdutoInline]
 
     def get_changelist(self, request, **kwargs):
         return TotalPedido
 
+
 admin.site.register(Pedido, PedidoAdmin)
 
+
 class ProdutoAdmin(admin.ModelAdmin):
-    list_display = ['id','pedido', 'game', 'quantidade', 'valorUnitario']
+    list_display = ['id', 'pedido', 'game', 'quantidade', 'valorUnitario']
+
 
 admin.site.register(Produto, ProdutoAdmin)

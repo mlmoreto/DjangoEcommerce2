@@ -63,4 +63,4 @@ class User(AbstractBaseUser):
 
     def getHistory(self):
         from history.models import Pedido
-        return Pedido.objects.filter(user=self)
+        return Pedido.objects.filter(user=self).order_by('id').reverse()
