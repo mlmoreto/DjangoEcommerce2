@@ -1,4 +1,42 @@
 {% extends "usuario_home.html" %}
 {% load static %}
 {% block usuario_conteudo %}
+<div class="demo-card-wide mdl-card mdl-shadow--2dp">
+    <div class="mdl-card__supporting-text">
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+                <th></th>
+                <th>ID</th>
+                <th>Data</th>
+                <th>Valor</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for p in user.getHistory%}
+            <tr>
+                <td data-toggle="collapse" data-target="#{{p.id}}" class="clickable btn btn-info"><i
+                        class="material-icons">zoom_in</i></td>
+                <td>{{p.id}}</td>
+                <td>{{p.data}}</td>
+                <td>{{p.total}}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td data-toggle="collapse" data-target="#accordion" class="clickable btn btn-info"><i
+                        class="material-icons">zoom_in</i></td>
+                <td>0</td>
+                <td>00/00/0000</td>
+                <td>00,00</td>
+                <td>Cartão</td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <div id="accordion" class="collapse">Hidden by default</div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}

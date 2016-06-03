@@ -19,6 +19,9 @@ class Pedido (models.Model):
     def __str__(self):
         return self.user.username + ", "+ str(self.id)
 
+    def getProdutos(self):
+        return Produto.objects.filter(pedido=self)
+
 class Produto (models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     game = models.ForeignKey(Game)

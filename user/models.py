@@ -60,3 +60,7 @@ class User(AbstractBaseUser):
             car.user = self
             car.save()
             return car
+
+    def getHistory(self):
+        from history.models import Pedido
+        return Pedido.objects.filter(user=self)
