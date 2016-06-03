@@ -61,7 +61,10 @@ def submit(request):
                 consumeCart(cart=cart)
                 msg = 'Olá ' + request.user.name + '\n'
                 for i in cart.getItens():
-                    msg += i.game.title + ", serial: " + gerarCod() + '\n'
+                    msg += i.game.title + ", serial(s): "
+                    for i in range(0,i.quantidade):
+                        msg += gerarCod()+'; '
+                    msg += '\n'
 
                 msg += '\nObrigado por comprar pela nossa loja SNAKEGAMES.'
 
@@ -74,15 +77,15 @@ def submit(request):
                 cart.delete()
                 dic = {'mensagem': 'Compra finalizada com sucesso',
                        'body': 'Por favor verefique seu email para receber os produtos.'}
-                return render(request, 'userSucesso.html', dic)
+                return render(request, 'sucesso_compra.html', dic)
             else:
                 dic = {'mensagem': 'Carrinho contem itens esgotados',
                    'body': 'Pedimos desculpas pelo inconveniente.'}
-                return render(request, 'erro_jogo.html', dic)
+                return render(request, 'erro_compra.html', dic)
         else:
             dic = {'mensagem': 'Carrinho vazio',
                    'body': 'Por favor coloque um item no carrinho para finalizar a compra.'}
-            return render(request, 'erro_jogo.html', dic)
+            return render(request, 'erro_compra.html', dic)
 
 
 def gerarCod():
