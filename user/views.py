@@ -143,7 +143,6 @@ def alterUser(request):
             form = UserAlterForm(request.POST)
             form.user = request.user
             if(form.is_valid()):
-                print('ooooooooooo:',form.user.is_password_generated)
                 form.user.save()
                 dic = {'mensagem': 'Alterar dados',
                    'body': 'Foi um sucesso!!'}
