@@ -120,6 +120,7 @@ class UserAlterForm(forms.Form):
         data = self.cleaned_data['password']
         if(len(data) > 0):
             self.user.password = data
+            self.user.is_password_generated = False
         return data
 
     def clean_email(self):

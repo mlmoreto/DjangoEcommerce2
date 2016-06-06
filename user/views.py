@@ -56,7 +56,7 @@ def login_user(request):
                                 password=form.cleaned_data['password'])
             login(request, user)
             if(user.is_password_generated):
-                return HttpResponseRedirect(reverse('shop.views.alterUser'))
+                return HttpResponseRedirect(reverse('user.views.alterUser'))
             return HttpResponseRedirect(reverse('shop.views.home'))
         else:
             dic = createForm(True, formLogin=form)
@@ -143,8 +143,8 @@ def alterUser(request):
             form = UserAlterForm(request.POST)
             form.user = request.user
             if(form.is_valid()):
+                print('ooooooooooo:',form.user.is_password_generated)
                 form.user.save()
-                form.user.is_password_generated = False
                 dic = {'mensagem': 'Alterar dados',
                    'body': 'Foi um sucesso!!'}
                 return render(request, 'userSucesso.html', dic)
@@ -152,7 +152,7 @@ def alterUser(request):
                 dic = {'form': form}
                 return render(request, 'usuario_dados.html', dic)
         else:
-            return HttpResponseRedirect(reverse('shop.views.meus_dados'))
+            return HttpResponseRedirect(reverse('user.views.meus_dados'))
     else:
         return HttpResponseRedirect(reverse('shop.views.home'))
 
