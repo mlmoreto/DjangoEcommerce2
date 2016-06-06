@@ -1,7 +1,9 @@
+from datetime import datetime
+
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from .forms import UserForm, UserLogin, UserRecuperar
+from .forms import UserForm, UserLogin, UserRecuperar, UserAlterForm
 from .models import User
 from django.contrib.auth import login, authenticate, get_backends, logout
 import random
@@ -53,6 +55,8 @@ def login_user(request):
             user = authenticate(username=form.cleaned_data['username'],
                                 password=form.cleaned_data['password'])
             login(request, user)
+            if(user.is_password_generated):
+                return HttpResponseRedirect(reverse('shop.views.alterUser'))
             return HttpResponseRedirect(reverse('shop.views.home'))
         else:
             dic = createForm(True, formLogin=form)
@@ -108,8 +112,7 @@ def meus_dados(request):
     if (isCliente(request.user)):
         from .forms import UserAlterForm
         form = UserAlterForm()
-        form.user = request.user
-        dic = {'form': setDados(user=form.user, form=form)}
+        dic = {'form': setDados(user=request.user, form=form)}
 
         return render(request, 'usuario_dados.html', dic)
     else:
@@ -118,8 +121,8 @@ def meus_dados(request):
 def setDados(user, form):
     form.fields['name'].initial = user.name
     form.fields['username'].initial = user.username
-    print(user.birthDate)
-    form.fields['birthDate'].initial = user.birthDate
+    data = datetime.strptime(str(user.birthDate), '%Y-%m-%d')
+    form.fields['birthDate'].initial = data.strftime('%d/%m/%Y')
     form.fields['cidade'].initial = user.cidade
     form.fields['cpf'].initial = user.cpf
     form.fields['email'].initial = user.email
@@ -127,10 +130,31 @@ def setDados(user, form):
     form.fields['fone'].initial = user.fone
     form.fields['numero'].initial = user.numero
     form.fields['rua'].initial = user.rua
+    form.user = user
     return form
 
 def isCliente(user):
     return isinstance(user, User().__class__)
+
+@login_required(login_url='/user/login/')
+def alterUser(request):
+    if (isCliente(request.user)):
+        if (request.method == 'POST'):
+            form = UserAlterForm(request.POST)
+            form.user = request.user
+            if(form.is_valid()):
+                form.user.save()
+                form.user.is_password_generated = False
+                dic = {'mensagem': 'Alterar dados',
+                   'body': 'Foi um sucesso!!'}
+                return render(request, 'userSucesso.html', dic)
+            else:
+                dic = {'form': form}
+                return render(request, 'usuario_dados.html', dic)
+        else:
+            return HttpResponseRedirect(reverse('shop.views.meus_dados'))
+    else:
+        return HttpResponseRedirect(reverse('shop.views.home'))
 
 
 def recuperarSenha(request):

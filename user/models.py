@@ -17,7 +17,7 @@ class User(AbstractBaseUser):
     REQUIRED_FIELDS = []
 
     ##Field para verificação de necessiade de troca de senha
-    is_password_generated = False
+    is_password_generated = models.BooleanField(default=False)
 
     #Fields for validation, permissions
     is_staff = False
@@ -44,7 +44,8 @@ class User(AbstractBaseUser):
         return self.username
 
     def save(self, *args, **kwargs):
-        self.set_password(self.password)
+        if(not self.has_usable_password()):
+            self.set_password(self.password)
         try:
             super(User, self).save(*args, **kwargs)
         except:

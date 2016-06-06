@@ -10,5 +10,6 @@ urlpatterns = [
     url(r'minha-conta/$',views.minha_conta),
     url(r'minha-conta/carrinho/$',views.meu_carrinho),
     url(r'minha-conta/historico/$',views.meu_historico),
-    url(r'minha-conta/meus-dados/$',views.meus_dados)
+    url(r'minha-conta/meus-dados/$',views.meus_dados),
+    url(r'minha-conta/alterar/$',views.alterUser)
 ]

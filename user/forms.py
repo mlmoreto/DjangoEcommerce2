@@ -106,7 +106,6 @@ class UserAlterForm(forms.Form):
             self.user.name = data
         return data
 
-
     def clean_username(self):
         data = self.cleaned_data['username']
         if(data != self.user.username):
@@ -130,13 +129,52 @@ class UserAlterForm(forms.Form):
             if i == 1:
                 raise ValidationError(('Email já foi utilizado, tente outro email'), code='invalid')
                 return False
+            self.user.email = data
         return data
 
     def clean_birthDate(self):
         data = self.cleaned_data['birthDate']
-        now = datetime.now().date()
-        if (data < now):
-            return data
-        else:
-            raise ValidationError(('Data inválida'), code='invalid')
-            return False
+        if(self.user.birthDate != data):
+            now = datetime.now().date()
+            if (data < now):
+                self.user.birthDate = data
+                return data
+            else:
+                raise ValidationError(('Data inválida'), code='invalid')
+                return False
+
+    def clean_fone(self):
+        data = self.cleaned_data['fone']
+        if(data != self.user.fone):
+            self.user.fone = data
+        return data
+
+    def clean_cpf(self):
+        data = self.cleaned_data['cpf']
+        if(data != self.user.cpf):
+            self.user.cpf = data
+        return data
+
+    def clean_estado(self):
+        data = self.cleaned_data['estado']
+        if(data != self.user.estado):
+            self.user.estado = data
+        return data
+
+    def clean_cidade(self):
+        data = self.cleaned_data['cidade']
+        if(data != self.user.cidade):
+            self.user.cidade = data
+        return data
+
+    def clean_rua(self):
+        data = self.cleaned_data['rua']
+        if(data != self.user.rua):
+            self.user.rua = data
+        return data
+
+    def clean_numero(self):
+        data = self.cleaned_data['numero']
+        if(data != self.user.numero):
+            self.user.numero = data
+        return data
