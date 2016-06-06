@@ -88,7 +88,7 @@ class UserRecuperar (forms.Form):
 class UserAlterForm(forms.Form):
     name = forms.CharField(label='Nome', max_length=100, required=True)
     username = forms.CharField(label='Apelido', max_length=100, required=True)
-    password = forms.CharField(label='Senha', max_length=100, required=True)
+    password = forms.CharField(label='Senha', max_length=100, required=False)
     email = forms.EmailField(label='Email', max_length=100, required=True)
     birthDate = forms.DateField(label='Data de Nascimento', required=True)
     fone = forms.CharField(label='Fone', required=True)
@@ -100,20 +100,36 @@ class UserAlterForm(forms.Form):
 
     user = None
 
+    def clean_name(self):
+        data = self.cleaned_data['name']
+        if(data != self.user.name):
+            self.user.name = data
+        return data
+
+
     def clean_username(self):
         data = self.cleaned_data['username']
-        i = User.objects.filter(username=data).count()
-        if i == 1:
-            raise ValidationError(('Usuário já existe, tente outro apelido'), code='invalid')
-            return False
+        if(data != self.user.username):
+            i = User.objects.filter(username=data).count()
+            if i == 1:
+                raise ValidationError(('Usuário já existe, tente outro apelido'), code='invalid')
+                return False
+            self.user.username = data
+        return data
+
+    def clean_password(self):
+        data = self.cleaned_data['password']
+        if(len(data) > 0):
+            self.user.password = data
         return data
 
     def clean_email(self):
         data = self.cleaned_data['email']
-        i = User.objects.filter(email=data).count()
-        if i == 1:
-            raise ValidationError(('Email já foi utilizado, tente outro email'), code='invalid')
-            return False
+        if(self.user.email != data):
+            i = User.objects.filter(email=data).count()
+            if i == 1:
+                raise ValidationError(('Email já foi utilizado, tente outro email'), code='invalid')
+                return False
         return data
 
     def clean_birthDate(self):
