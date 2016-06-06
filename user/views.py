@@ -106,10 +106,28 @@ def meu_historico(request):
 @login_required(login_url='/user/login/')
 def meus_dados(request):
     if (isCliente(request.user)):
-        return render(request, 'usuario_dados.html')
+        from .forms import UserAlterForm
+        form = UserAlterForm()
+        form.user = request.user
+        dic = {'form': setDados(user=form.user, form=form)}
+
+        return render(request, 'usuario_dados.html', dic)
     else:
         return HttpResponseRedirect(reverse('shop.views.home'))
 
+def setDados(user, form):
+    form.fields['name'].initial = user.name
+    form.fields['username'].initial = user.username
+    print(user.birthDate)
+    form.fields['birthDate'].initial = user.birthDate
+    form.fields['cidade'].initial = user.cidade
+    form.fields['cpf'].initial = user.cpf
+    form.fields['email'].initial = user.email
+    form.fields['estado'].initial = user.estado
+    form.fields['fone'].initial = user.fone
+    form.fields['numero'].initial = user.numero
+    form.fields['rua'].initial = user.rua
+    return form
 
 def isCliente(user):
     return isinstance(user, User().__class__)

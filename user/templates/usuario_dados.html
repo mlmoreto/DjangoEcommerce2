@@ -2,57 +2,212 @@
 {% load static %}
 {% block usuario_conteudo %}
 <style>
-.demo-card-square.mdl-card {
-  width: 100%;
-  height: auto;
-}
+    .demo-card-square.mdl-card {
+    width: 100%;
+    height: auto;
+    }
 </style>
 <div class="demo-card-square mdl-card mdl-shadow--8dp">
-  <div class="mdl-card__title mdl-card--expand">
-    <h2 class="mdl-card__title-text">Meus Dados</h2>
-  </div>
-  <div class="mdl-card__supporting-text">
-    <div class="input-group">
-      <span class="input-group-addon" id="sizing-addon2">Nome </span>
-      <input type="text" class="form-control" placeholder="Nome" aria-describedby="sizing-addon2" value="{{user.name}}">
-    </div><br>
-    <div class="input-group">
-      <span class="input-group-addon" id="sizing-addon2">Username </span>
-      <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2" value="{{user.username}}">
-    </div><br>
-    <div class="input-group">
-      <span class="input-group-addon" id="sizing-addon2">Email </span>
-      <input type="text" class="form-control" placeholder="exemplo@email.com" aria-describedby="sizing-addon2" value="{{user.email}}">
-    </div><br>
-    <div class="input-group">
-      <span class="input-group-addon" id="sizing-addon2">Telefone </span>
-      <input type="text" class="form-control" placeholder="(11)1111-1111" aria-describedby="sizing-addon2" value="{{user.fone}}">
-    </div><br>
-    <div class="input-group">
-      <span class="input-group-addon" id="sizing-addon2">Data de Nascimento </span>
-      <input type="text" class="form-control" placeholder="99/99/9999" aria-describedby="sizing-addon2" value="{{user.birthDate}}">
-    </div><br>
-    <div class="input-group">
-      <span class="input-group-addon" id="sizing-addon2">CPF </span>
-      <input type="text" class="form-control" placeholder="999.999.999-99" aria-describedby="sizing-addon2" value="{{user.cpf}}">
-    </div><br>
-    <div class="input-group">
-      <span class="input-group-addon" id="sizing-addon2">Rua </span>
-      <input type="text" class="form-control" placeholder="Rua" aria-describedby="sizing-addon2" value="{{user.rua}}">
-    </div><br>
-    <div class="input-group">
-      <span class="input-group-addon" id="sizing-addon2">Cidade </span>
-      <input type="text" class="form-control" placeholder="Cidade" aria-describedby="sizing-addon2" value="{{user.cidade}}">
-    </div><br>
-    <div class="input-group">
-      <span class="input-group-addon" id="sizing-addon2">Número </span>
-      <input type="text" class="form-control" placeholder="Número" aria-describedby="sizing-addon2" value="{{user.numero}}">
-    </div><br>
-  </div>
-  <div class="mdl-card__actions mdl-card--border">
-    <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-      Atualizar Dados Cadastrais
-    </a>
-  </div>
+    <div class="mdl-card__title mdl-card--expand">
+        <h2 class="mdl-card__title-text">Dados do {{user.name}}</h2>
+    </div>
+    <div class="mdl-card__supporting-text">
+        <form method="post" action="{% url 'user.views.cadastro_user' %}">
+            {% csrf_token %}
+            <div class="mdl-card__supporting-text">
+                <fieldset enable>
+                    <div class="form-group">
+                        <label for="{{form.name.id_for_label}}">{{form.name.label}}</label>
+                        <input type="text" id="{{form.name.id_for_label}}"
+                               name="{{form.name.html_name}}" class="form-control"
+                               value="{% if form.name.value %}{{form.name.value}}{% endif %}"
+                               placeholder="{{form.name.label}}" maxlength="100" required>
+                        {% if form.name.errors%}
+                        {% for error in form.name.errors %}
+                        <small class="text-muted">
+                            {{error|escape}}
+                        </small>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.username.id_for_label}}">{{form.username.label}}</label>
+                        <input type="text" id="{{form.username.id_for_label}}"
+                               name="{{form.username.html_name}}" class="form-control"
+                               value="{% if form.username.value %}{{form.username.value}}{% endif %}"
+                               placeholder="{{form.username.label}}" maxlength="100" required>
+                        {% if form.username.errors%}
+                        {% for error in form.username.errors %}
+                        <small class="text-muted">
+                            {{error|escape}}
+                        </small>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.password.id_for_label}}">{{form.password.label}}</label>
+                        <input type="password" id="{{form.password.id_for_label}}"
+                               name="{{form.password.html_name}}" class="form-control"
+                               value="{% if form.password.value %}{{form.password.value}}{% endif %}"
+                               placeholder="{{form.password.label}}" maxlength="100" required>
+                        {% if form.password.errors%}
+                        {% for error in form.password.errors %}
+                        <small class="text-muted">
+                            {{error|escape}}
+                        </small>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.email.id_for_label}}">{{form.email.label}}</label>
+                        <input type="email" id="{{form.email.id_for_label}}"
+                               name="{{form.email.html_name}}" class="form-control"
+                               value="{% if form.email.value %}{{form.email.value}}{% endif %}"
+                               placeholder="{{form.email.label}}" maxlength="100" required>
+                        {% if form.email.errors%}
+                        {% for error in form.email.errors %}
+                        <small class="text-muted">
+                            {{error|escape}}
+                        </small>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.birthDate.id_for_label}}">{{form.birthDate.label}}</label>
+                        <input type="text" id="{{form.birthDate.id_for_label}}"
+                               name="{{form.birthDate.html_name}}" class="form-control"
+                               value="{% if form.birthDate.value %}{{form.birthDate.value}}{% endif %}"
+                               placeholder="dd/mm/aaaa" maxlength="100" required
+                               pattern="^(([0-9])|([0-2][0-9])|(3[0-1]))\/(([1-9])|(0[1-9])|(1[0-2]))\/(([0-9][0-9])|([1-2][0,9][0-9][0-9]))$">
+                        {% if form.birthDate.errors%}
+                        {% for error in form.birthDate.errors %}
+                        <small class="text-muted">
+                            {{error|escape}}
+                        </small>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.cpf.id_for_label}}">{{form.cpf.label}}</label>
+                        <input type="text" id="{{form.cpf.id_for_label}}"
+                               name="{{form.cpf.html_name}}" class="form-control"
+                               value="{% if form.cpf.value %}{{form.cpf.value}}{% endif %}"
+                               placeholder="000.000.000-00" maxlength="100"
+                               pattern="^\d{3}.\d{3}.\d{3}-\d{2}$" required>
+                        {% if form.cpf.errors%}
+                        {% for error in form.cpf.errors %}
+                        <small class="text-muted">
+                            {{error|escape}}
+                        </small>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.fone.id_for_label}}">{{form.fone.label}}</label>
+                        <input type="text" id="{{form.fone.id_for_label}}"
+                               name="{{form.fone.html_name}}" class="form-control"
+                               value="{% if form.fone.value %}{{form.fone.value}}{% endif %}"
+                               placeholder="(00) 0000-0000" maxlength="100" required
+                               pattern="^\(\d{2}\) ?\d{4,5}-\d{4}$">
+                        {% if form.fone.errors%}
+                        {% for error in form.fone.errors %}
+                        <small class="text-muted">
+                            {{error|escape}}
+                        </small>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.estado.id_for_label}}">{{form.estado.label}}</label>
+                        <select name="{{form.estado.html_name}}" id="{{form.estado.id_for_label}}"
+                                class="form-control"
+                                required onchange="setCidades('{{form.estado.id_for_label}}',
+                                                     '{{form.cidade.id_for_label}}');">
+                            <!-- Estados adicionado pelo javascript -->
+                        </select>
+                        {% if form.estado.errors%}
+                        {% for error in form.estado.errors %}
+                        <small class="text-muted">
+                            {{error|escape}}
+                        </small>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.cidade.id_for_label}}">{{form.cidade.label}}</label>
+                        <select name="{{form.cidade.html_name}}" class="form-control"
+                                id="{{form.cidade.id_for_label}}"
+                                required>
+                            <!-- Cidades adicionadas pelo javascript -->
+                        </select>
+                        {% if form.cidade.errors%}
+                        {% for error in form.cidade.errors %}
+                        <small class="text-muted">
+                            {{error|escape}}
+                        </small>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.rua.id_for_label}}">{{form.rua.label}}</label>
+                        <input type="text" id="{{form.rua.id_for_label}}"
+                               name="{{form.rua.html_name}}" class="form-control"
+                               value="{% if form.rua.value %}{{form.rua.value}}{% endif %}"
+                               placeholder="{{form.rua.label}}" maxlength="100" required>
+                        {% if form.rua.errors%}
+                        {% for error in form.rua.errors %}
+                        <small class="text-muted">
+                            {{error|escape}}
+                        </small>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.numero.id_for_label}}">{{form.numero.label}}</label>
+                        <input type="text" id="{{form.numero.id_for_label}}"
+                               name="{{form.numero.html_name}}" class="form-control"
+                               value="{% if form.numero.value %}{{form.numero.value}}{% endif %}"
+                               placeholder="{{form.numero.label}}" maxlength="100" required
+                               pattern="^\d+">
+                        {% if form.numero.errors%}
+                        {% for error in form.numero.errors %}
+                        <small class="text-muted">
+                            {{error|escape}}
+                        </small>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </fieldset>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+                    <input type="submit"
+                       class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+                       value="Atualizar Dados">
+            </div>
+        </form>
+    </div>
 </div>
+<script>
+     setEstados('{{form.estado.id_for_label}}');
+     carregarCidades();
+     {% if form.estado.value %}
+     setOption('{{form.estado.id_for_label}}', '{{form.estado.value}}');
+         {% if form.cidade.value %}
+             setCidades('{{form.estado.id_for_label}}','{{form.cidade.id_for_label}}');
+             setOption('{{form.cidade.id_for_label}}', '{{form.cidade.value}}');
+         {% endif %}
+     {% else %}
+        setCidades('{{form.estado.id_for_label}}','{{form.cidade.id_for_label}}');
+     {% endif %}
+
+     $('#{{form.fone.id_for_label}}').maskbrphone({
+     useDdd           : true,
+     useDddParenthesis: true,
+     dddSeparator     : ' ',
+     numberSeparator  : '-'
+     });
+     $('#{{form.birthDate.id_for_label}}').mask('00/00/0000');
+     $('#{{form.cpf.id_for_label}}').mask('000.000.000-00');
+
+</script>
 {% endblock %}
