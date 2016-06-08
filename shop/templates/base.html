@@ -86,6 +86,9 @@
                                 {% else %}Logar{% endif %}</a></li>
                             {% if user.is_authenticated == True %}
                             <li><a href="{% if user.is_authenticated %}{% url 'user.views.meu_carrinho' %}
+                {% else %}{% url 'user.views.show_user' %}{% endif %}">{% if user.is_authenticated %}Meus Carrinho
+                                {% endif %}</a></li>
+                            <li><a href="{% if user.is_authenticated %}{% url 'user.views.meu_historico' %}
                 {% else %}{% url 'user.views.show_user' %}{% endif %}">{% if user.is_authenticated %}Meus Pedidos
                                 {% endif %}</a></li>
                             <li role="separator" class="divider"></li>

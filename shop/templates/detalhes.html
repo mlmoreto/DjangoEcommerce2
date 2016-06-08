@@ -4,97 +4,95 @@
 
 <style>
 
-.demo-card-wide > .mdl-card__title {
-  color: #fff;
-  height: 176px;
-  background: url('{{game.card.url}}') center / cover;
-}
-.demo-card-wide > .mdl-card__menu {
-  color: #fff;
-}
-.nome{
-  color: #FFFFFF;
-  font-weight: 900;
-}
-h1,
-h2,
-h3 {
-  margin: 0;
-}
+    .demo-card-wide > .mdl-card__title {
+    color: #fff;
+    height: 176px;
+    background: url('{{game.card.url}}') center / cover;
+    }
+    .demo-card-wide > .mdl-card__menu {
+    color: #fff;
+    }
+    .nome{
+    color: #FFFFFF;
+    font-weight: 900;
+    }
+    h1,
+    h2,
+    h3 {
+    margin: 0;
+    }
 
-h1 {
-  letter-spacing: 0px;
-  letter-spacing: .02rem;
-  font-size: 48px;
-  font-size: 3rem;
-}
+    h1 {
+    letter-spacing: 0px;
+    letter-spacing: .02rem;
+    font-size: 48px;
+    font-size: 3rem;
+    }
 
-h3 {
-  color: #666;
-  font-size: 19px;
-  font-size: 1.2rem;
-}
+    h3 {
+    color: #666;
+    font-size: 19px;
+    font-size: 1.2rem;
+    }
 
-.description {
-  margin-top: 20px;
-  width: 100%;
-}
+    .description {
+    margin-top: 20px;
+    width: 100%;
+    }
 
-a {
-  text-decoration:none;
-}
-a:hover {
-  text-decoration:underline;
-  color:#666;
-}
-button {
-  background:#333;
-  border:none;
-  font-weight:400;
-  height:40px;
-  margin-top:auto;
-  margin-bottom:auto;
-  padding-left:25px;
-  padding-right:25px;
-  box-sizing:border-box;
-  color:#fff;
-  cursor:pointer;
-  -webkit-transition:all .3s ease;
-          transition:all .3s ease;
-}
-button:hover {
-  background:#555;
-  -webkit-transition:all .3s ease;
-          transition:all .3s ease;
-}
-.divider {
-  width:80%;
-  height:1px;
-  background:#ddd;
-  margin-top:20px;
-  margin-bottom:20px;
-  margin-left:auto;
-  margin-right:auto;
-}
+    a {
+    text-decoration:none;
+    }
+    a:hover {
+    text-decoration:underline;
+    color:#666;
+    }
+    button {
+    background:#333;
+    border:none;
+    font-weight:400;
+    height:40px;
+    margin-top:auto;
+    margin-bottom:auto;
+    padding-left:25px;
+    padding-right:25px;
+    box-sizing:border-box;
+    color:#fff;
+    cursor:pointer;
+    -webkit-transition:all .3s ease;
+    transition:all .3s ease;
+    }
+    button:hover {
+    background:#555;
+    -webkit-transition:all .3s ease;
+    transition:all .3s ease;
+    }
+    .divider {
+    width:80%;
+    height:1px;
+    background:#ddd;
+    margin-top:20px;
+    margin-bottom:20px;
+    margin-left:auto;
+    margin-right:auto;
+    }
 
-.purchase-info {
-  -webkit-box-pack:justify;
-  -webkit-justify-content:space-between;
-      -ms-flex-pack:justify;
-          justify-content:space-between;
-  display:-webkit-box;
-  display:-webkit-flex;
-  display:-ms-flexbox;
-  display:flex;
-}
-.price {
-  font-size: 40px;
-  font-size:2.5rem;
-}
+    .purchase-info {
+    -webkit-box-pack:justify;
+    -webkit-justify-content:space-between;
+    -ms-flex-pack:justify;
+    justify-content:space-between;
+    display:-webkit-box;
+    display:-webkit-flex;
+    display:-ms-flexbox;
+    display:flex;
+    }
+    .price {
+    font-size: 40px;
+    font-size:2.5rem;
+    }
 
-}
-
-
+    }
 
 
 </style>
@@ -108,7 +106,12 @@ button:hover {
 
                     </div>
                     <div class="mdl-card__supporting-text">
-                        <h4>{{game.title}}</h4>
+                        <h4>{{game.title}}</h4><br>
+                        <p>
+                            <b><em>Modos: </em><em>{% if game.offline == True %}Offline; {% endif %}
+                                {% if game.multiplayer == True %}Multiplayer; {% endif %}
+                                {% if game.cooperation == True %}Cooperation; {% endif %}</em></b>
+                        </p>
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
                         {% if game.hasStock %}
@@ -129,6 +132,11 @@ button:hover {
                     <h3>{% for genre in game.genres.all %} {{genre.title}}; {% endfor %}</h3>
                     <div class='description' id='description'>
                         {{game.description}}
+                        <br><br><br>
+                        <button type="button"
+                                class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                                data-toggle="modal" data-target="#myModal">Especificações
+                        </button>
                     </div>
                     <div class='highlight-window  mobile' id='product-img'>
                         <div class='highlight-overlay' id='highlight-overlay-mobile'></div>
@@ -136,14 +144,11 @@ button:hover {
                     <div class='divider'></div>
                     <div class='purchase-info'>
                         {% if game.desconto != 0%}
-                            <div class="preco"><p><strike>De: R${{game.price|floatformat:2}}</strike> Por: R${{game.getValor|floatformat:2}}<br>
-                                desconto de {{game.desconto|floatformat:0}}%</p></div>
-
-
-
-
+                        <div class="preco"><p><strike>De: R${{game.price|floatformat:2}}</strike> Por:
+                            R${{game.getValor|floatformat:2}}<br>
+                            desconto de {{game.desconto|floatformat:0}}%</p></div>
                         {% else %}
-                            <div class="preco"><p>Preço: R${{game.getValor|floatformat:2}}</p></div>
+                        <div class="preco"><p>Preço: R${{game.getValor|floatformat:2}}</p></div>
                         {% endif %}
 
                         {% if game.hasStock %}
@@ -160,6 +165,24 @@ button:hover {
         </div>
     </div>
 </div>
-
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Especificações</h4>
+            </div>
+            <div class="modal-body">
+                <p style="white-space: pre-line">
+                    {{game.specifications}}
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 {% endblock %}
